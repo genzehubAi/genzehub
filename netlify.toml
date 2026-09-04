@@ -1,0 +1,22 @@
+# Only used if you deploy to Netlify. Harmless on GitHub Pages.
+[build]
+  publish = "."
+  command = ""
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# /fx and /fx/ both land on the FX page
+[[redirects]]
+  from = "/fx"
+  to = "/fx/"
+  status = 301

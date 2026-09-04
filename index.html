@@ -1,0 +1,2400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0A0E06">
+<meta name="color-scheme" content="dark">
+<title>$GENZE — The token with a name on it</title>
+<meta name="description" content="GENZE. Three frogs, one namespace. Every holder gets a .z name nobody can take.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee:wght@400&family=Archivo+Black&family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════ TOKENS ═══════════ */
+:root{
+  --blue:#004EEA; --green:#349C00; --lime:#4EC900; --yellow:#EAB600;
+  --ink:#0A0E06; --ink2:#111806; --panel:#161F0B; --line:#2C3D14;
+  --white:#F4F8EE; --mute:#9FB183; --dim:#6E8253;
+  --slime:#7CFF2A;
+  --title:'Bungee',system-ui,sans-serif;
+  --heavy:'Archivo Black',system-ui,sans-serif;
+  --body:'Inter Tight',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --gut:clamp(18px,4vw,64px);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--ink);color-scheme:dark;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--ink);color:var(--white);font-family:var(--body);
+  font-size:16px;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+img{display:block;max-width:100%}
+::selection{background:var(--slime);color:#0A0E06}
+:focus-visible{outline:3px solid var(--slime);outline-offset:3px}
+.mono{font-family:var(--mono)}
+
+/* ═══════════ TOP TICKER ═══════════ */
+.ticker{
+  position:sticky;top:0;z-index:60;overflow:hidden;
+  background:var(--slime);color:#0A0E06;
+  border-bottom:3px solid #0A0E06;
+}
+.ticker div{
+  display:flex;gap:38px;width:max-content;padding:7px 0;
+  font-family:var(--heavy);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;
+  animation:slide 26s linear infinite;
+}
+.ticker span{white-space:nowrap;display:flex;align-items:center;gap:38px}
+.ticker span::after{content:'●';font-size:8px;opacity:.6}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* ═══════════ NAV ═══════════ */
+.nav{
+  position:sticky;top:32px;z-index:50;display:flex;align-items:center;gap:14px;
+  padding:12px var(--gut);backdrop-filter:blur(14px);
+  background:rgba(10,14,6,.82);border-bottom:1px solid var(--line);
+}
+.nav .logo{display:flex;align-items:center;gap:10px;font-family:var(--title);font-size:19px}
+.nav .logo img{width:38px;height:auto}
+.nav .links{display:flex;gap:19px;margin-left:22px}
+.nav .links a{font-weight:600;font-size:13.5px;color:var(--mute);transition:color .15s;white-space:nowrap}
+.nav .links a[href='fx/']{color:var(--slime)}
+.nav .links a:hover{color:var(--slime)}
+.nav .right{margin-left:auto;display:flex;gap:10px;align-items:center}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 20px;border-radius:11px;font-family:var(--heavy);font-size:13.5px;
+  letter-spacing:.02em;text-transform:uppercase;transition:transform .12s,box-shadow .12s;
+  border:3px solid #0A0E06;
+}
+.btn:active{transform:translate(2px,2px)}
+.btn-buy{background:var(--slime);color:#0A0E06;box-shadow:4px 4px 0 #0A0E06}
+.btn-gold{background:var(--yellow);color:#0A0E06;box-shadow:4px 4px 0 #0A0E06}
+.btn-gold:active{box-shadow:2px 2px 0 #0A0E06}
+.btn-buy:active{box-shadow:2px 2px 0 #0A0E06}
+.btn-out{background:transparent;border-color:var(--line);color:var(--white)}
+.btn-out:hover{border-color:var(--slime);color:var(--slime)}
+.btn-blue{background:var(--blue);color:#fff;box-shadow:4px 4px 0 #0A0E06}
+.btn-blue:active{box-shadow:2px 2px 0 #0A0E06}
+
+/* ═══════════ HERO ═══════════ */
+.hero{
+  position:relative;padding:clamp(30px,6vh,64px) var(--gut) clamp(44px,8vh,84px);
+  overflow:hidden;isolation:isolate;
+}
+.hero::before{
+  content:'';position:absolute;inset:-20%;z-index:-2;
+  background:
+    radial-gradient(circle at 24% 28%,rgba(0,78,234,.26),transparent 46%),
+    radial-gradient(circle at 76% 34%,rgba(234,182,0,.20),transparent 46%),
+    radial-gradient(circle at 50% 78%,rgba(52,156,0,.28),transparent 52%);
+  filter:blur(46px);animation:swim 17s ease-in-out infinite alternate;
+}
+@keyframes swim{to{transform:translate3d(3%,-3%,0) scale(1.09)}}
+.hero::after{
+  content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.055;
+  background-image:radial-gradient(#fff 1px,transparent 1px);background-size:20px 20px;
+}
+
+.hwrap{max-width:1180px;margin:0 auto;display:grid;gap:clamp(24px,4vw,52px);
+  grid-template-columns:1.05fr .95fr;align-items:center}
+
+.tag{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 14px;
+  border:3px solid #0A0E06;border-radius:99px;background:var(--yellow);color:#0A0E06;
+  font-family:var(--heavy);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+  box-shadow:3px 3px 0 #0A0E06;transform:rotate(-1.6deg);
+}
+h1{
+  font-family:var(--title);font-size:clamp(40px,7.4vw,88px);line-height:.92;
+  margin-top:18px;letter-spacing:-.005em;
+  text-shadow:5px 5px 0 #0A0E06, 0 0 42px rgba(124,255,42,.18);
+}
+h1 .g{color:var(--slime);display:block}
+h1 .w{color:#fff;display:block}
+.sub{
+  margin-top:20px;font-size:clamp(16px,1.9vw,19.5px);line-height:1.6;
+  font-weight:500;color:var(--mute);max-width:31em;
+}
+.sub b{color:var(--white)}
+.sub .z{font-family:var(--mono);color:var(--slime);font-weight:700}
+
+.hbtns{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+
+/* contract address */
+.ca{
+  margin-top:24px;max-width:520px;border:3px solid #0A0E06;border-radius:14px;
+  background:var(--panel);box-shadow:5px 5px 0 #0A0E06;overflow:hidden;
+}
+.ca-top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 15px;background:#0A0E06;
+}
+.ca-top span{font-family:var(--heavy);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--dim)}
+.ca-top i{font-style:normal;font-family:var(--heavy);font-size:10.5px;color:var(--yellow)}
+.ca-body{display:flex;align-items:center;gap:10px;padding:13px 15px}
+.ca-body code{
+  flex:1;min-width:0;font-family:var(--mono);font-size:13px;font-weight:500;
+  color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.ca-copy{
+  flex-shrink:0;padding:7px 13px;border-radius:8px;background:var(--line);
+  font-family:var(--heavy);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  transition:background .15s,color .15s;
+}
+.ca-copy:hover{background:var(--slime);color:#0A0E06}
+.ca-copy.done{background:var(--slime);color:#0A0E06}
+
+/* mascot */
+.mascot{position:relative;display:grid;place-items:center}
+.mascot img{
+  width:100%;max-width:520px;
+  filter:drop-shadow(0 22px 44px rgba(0,0,0,.7));
+  animation:bob 5.2s ease-in-out infinite;
+}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-.6deg)}50%{transform:translateY(-16px) rotate(.6deg)}}
+.mascot::before{
+  content:'';position:absolute;width:74%;aspect-ratio:1;border-radius:50%;z-index:-1;
+  background:radial-gradient(circle,rgba(124,255,42,.24),transparent 66%);
+  filter:blur(34px);animation:glow 4.4s ease-in-out infinite;
+}
+@keyframes glow{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.13)}}
+
+/* ═══════════ STAT STRIP ═══════════ */
+.stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  border-top:3px solid #0A0E06;border-bottom:3px solid #0A0E06;background:var(--slime);
+}
+.stat{padding:20px 18px;text-align:center;border-right:3px solid #0A0E06;color:#0A0E06}
+.stat:last-child{border-right:none}
+.stat b{display:block;font-family:var(--title);font-size:clamp(21px,3vw,30px);line-height:1}
+.stat span{display:block;margin-top:6px;font-family:var(--heavy);font-size:10.5px;
+  letter-spacing:.1em;text-transform:uppercase;opacity:.72}
+
+/* ═══════════ SECTIONS ═══════════ */
+.sec{padding:clamp(60px,10vh,110px) var(--gut);max-width:1180px;margin:0 auto;scroll-margin-top:112px}
+.sec-h{text-align:center;margin-bottom:clamp(30px,5vh,52px)}
+.sec-h h2{
+  font-family:var(--title);font-size:clamp(28px,5vw,52px);line-height:1;
+  text-shadow:4px 4px 0 #0A0E06;
+}
+.sec-h h2 em{font-style:normal;color:var(--slime)}
+.sec-h p{margin:16px auto 0;max-width:34em;color:var(--mute);font-size:16.5px;font-weight:500}
+
+/* why — the actual differentiator */
+.why{
+  border:3px solid #0A0E06;border-radius:22px;padding:clamp(24px,4vw,44px);
+  background:linear-gradient(150deg,var(--blue),#0037A8);
+  box-shadow:8px 8px 0 #0A0E06;position:relative;overflow:hidden;
+}
+.why::after{
+  content:'';position:absolute;inset:0;opacity:.08;pointer-events:none;
+  background-image:radial-gradient(#fff 1px,transparent 1px);background-size:16px 16px;
+}
+.why h3{font-family:var(--title);font-size:clamp(22px,3.6vw,38px);line-height:1.05;position:relative}
+.why p{margin-top:16px;font-size:17px;line-height:1.65;font-weight:500;
+  color:rgba(255,255,255,.9);max-width:44em;position:relative}
+.why .nm{
+  display:inline-flex;align-items:center;gap:2px;margin-top:22px;padding:12px 18px;
+  border:3px solid #0A0E06;border-radius:12px;background:#0A0E06;
+  font-family:var(--mono);font-size:clamp(16px,2.4vw,22px);font-weight:700;position:relative;
+}
+.why .nm b{color:#fff}
+.why .nm i{font-style:normal;color:var(--slime)}
+
+/* how to buy */
+.steps{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.step{
+  border:3px solid #0A0E06;border-radius:18px;padding:24px;background:var(--panel);
+  box-shadow:6px 6px 0 #0A0E06;transition:transform .16s;
+}
+.step:hover{transform:translate(-2px,-2px)}
+.step .n{
+  width:44px;height:44px;border-radius:11px;display:grid;place-items:center;
+  font-family:var(--title);font-size:20px;margin-bottom:15px;color:#0A0E06;
+  border:3px solid #0A0E06;
+}
+.step:nth-child(1) .n{background:var(--blue);color:#fff}
+.step:nth-child(2) .n{background:var(--slime)}
+.step:nth-child(3) .n{background:var(--yellow)}
+.step:nth-child(4) .n{background:var(--green);color:#fff}
+.step h4{font-family:var(--heavy);font-size:16px;letter-spacing:.01em}
+.step p{margin-top:9px;font-size:14.5px;line-height:1.6;color:var(--mute);font-weight:500}
+
+/* tokenomics */
+.tok{display:grid;gap:clamp(26px,4vw,48px);grid-template-columns:minmax(0,320px) 1fr;align-items:center}
+.ring{position:relative;width:100%;max-width:300px;aspect-ratio:1;margin:0 auto}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg);
+  filter:drop-shadow(0 6px 16px rgba(0,0,0,.6))}
+.ring .mid{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.ring .mid b{display:block;font-family:var(--title);font-size:30px;color:var(--slime)}
+.ring .mid span{display:block;margin-top:4px;font-family:var(--heavy);font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+
+.alloc{display:flex;flex-direction:column;gap:3px}
+.al{display:flex;align-items:center;gap:14px;padding:13px 15px;border-radius:12px;
+  transition:background .15s}
+.al:hover{background:rgba(124,255,42,.06)}
+.al .sw{width:14px;height:14px;border-radius:4px;border:2px solid #0A0E06;flex-shrink:0}
+.al .t{flex:1;min-width:0}
+.al .t b{display:block;font-family:var(--heavy);font-size:14px}
+.al .t span{display:block;font-size:12.5px;color:var(--dim);margin-top:2px;font-weight:500}
+.al .p{font-family:var(--title);font-size:17px;flex-shrink:0}
+
+/* promises */
+.vows{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:34px}
+.vow{border:3px solid #0A0E06;border-radius:14px;padding:18px;background:var(--panel);
+  box-shadow:4px 4px 0 #0A0E06}
+.vow b{display:block;font-family:var(--heavy);font-size:14px}
+.vow span{display:block;margin-top:7px;font-size:13.5px;line-height:1.55;color:var(--mute);font-weight:500}
+.vow.no b{color:#FF5C4D}
+.vow.yes b{color:var(--slime)}
+
+/* roadmap */
+.road{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.rd{border:3px solid #0A0E06;border-radius:16px;padding:22px;background:var(--panel);
+  box-shadow:5px 5px 0 #0A0E06;position:relative}
+.rd .ph{font-family:var(--heavy);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dim)}
+.rd h4{margin-top:9px;font-family:var(--title);font-size:19px;line-height:1.1}
+.rd p{margin-top:9px;font-size:13.5px;line-height:1.55;color:var(--mute);font-weight:500}
+.rd .st{display:inline-block;margin-top:13px;padding:4px 11px;border-radius:99px;
+  font-family:var(--heavy);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;
+  border:2px solid #0A0E06}
+.rd.done{background:linear-gradient(150deg,var(--green),#1E6600)}
+.rd.done .ph,.rd.done p{color:rgba(255,255,255,.82)}
+.rd.done .st{background:var(--slime);color:#0A0E06}
+.rd.now{background:linear-gradient(150deg,var(--blue),#0037A8)}
+.rd.now .ph,.rd.now p{color:rgba(255,255,255,.82)}
+.rd.now .st{background:var(--yellow);color:#0A0E06}
+.rd .st.wait{background:var(--line);color:var(--mute)}
+
+/* claim strip */
+.claim{
+  border:3px solid #0A0E06;border-radius:22px;padding:clamp(24px,4vw,40px);
+  background:var(--panel);box-shadow:8px 8px 0 #0A0E06;text-align:center;
+}
+.claim h3{font-family:var(--title);font-size:clamp(24px,4vw,40px);line-height:1.05}
+.claim h3 em{font-style:normal;color:var(--slime)}
+.claim p{margin:14px auto 0;max-width:32em;color:var(--mute);font-weight:500}
+.cbox{
+  display:flex;align-items:center;gap:2px;max-width:400px;margin:24px auto 0;
+  padding:14px 18px;border:3px solid #0A0E06;border-radius:14px;background:var(--ink);
+  transition:box-shadow .18s;
+}
+.cbox:focus-within{box-shadow:0 0 0 4px rgba(124,255,42,.28)}
+.cbox input{
+  flex:1;min-width:0;background:none;border:none;outline:none;color:#fff;
+  font-family:var(--mono);font-size:19px;font-weight:700;
+}
+.cbox input::placeholder{color:var(--dim);font-weight:500}
+.cbox .sfx{font-family:var(--mono);font-size:19px;font-weight:700;color:var(--slime)}
+.cbox .ind{width:20px;margin-left:8px;flex-shrink:0}
+.cbox .ind svg{width:20px;height:20px;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.cmsg{margin-top:12px;font-size:13.5px;font-weight:600;min-height:20px;color:var(--dim)}
+.cmsg.ok{color:var(--slime)}
+.cmsg.no{color:#FF5C4D}
+
+/* socials */
+.social{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:28px}
+.soc{
+  display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:12px;
+  border:3px solid #0A0E06;background:var(--panel);box-shadow:4px 4px 0 #0A0E06;
+  font-family:var(--heavy);font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;
+  transition:transform .14s,background .14s;
+}
+.soc:hover{transform:translate(-2px,-2px);background:var(--slime);color:#0A0E06}
+.soc svg{width:17px;height:17px}
+
+/* footer */
+footer{
+  border-top:3px solid #0A0E06;background:var(--ink2);
+  padding:34px var(--gut);text-align:center;
+}
+footer .risk{
+  max-width:52em;margin:0 auto 20px;font-size:12.5px;line-height:1.65;color:var(--dim);
+}
+footer .lnk{display:flex;justify-content:center;gap:22px;font-size:13px;color:var(--mute)}
+footer .lnk a:hover{color:var(--slime)}
+footer .cr{margin-top:16px;font-size:12px;color:var(--dim)}
+
+/* ═══════════ TWEET TO BUY ═══════════ */
+.tweetcard{
+  max-width:560px;margin:0 auto;padding:clamp(20px,4vw,32px);
+  border:3px dashed var(--slime);border-radius:22px;background:var(--panel);
+  box-shadow:8px 8px 0 #0A0E06;text-align:center;
+}
+.tw-label{
+  font-family:var(--heavy);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:14px;
+}
+.tw-cmd{
+  padding:16px 18px;border-radius:14px;background:var(--ink);
+  border:3px solid #0A0E06;overflow-x:auto;
+}
+.tw-cmd code{
+  font-family:var(--mono);font-size:clamp(13px,3.4vw,16.5px);font-weight:700;
+  color:var(--white);white-space:nowrap;
+}
+.tw-cmd code span{color:var(--slime)}
+
+.tw-amts{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
+.amt{
+  padding:9px 16px;border-radius:99px;border:3px solid #0A0E06;background:var(--ink);
+  font-family:var(--heavy);font-size:12.5px;color:var(--mute);transition:.14s;
+}
+.amt:hover{border-color:var(--slime);color:var(--white)}
+.amt.on{background:var(--slime);color:#0A0E06}
+.tw-custom{
+  display:block;width:100%;max-width:280px;margin:14px auto 0;padding:12px 16px;
+  border:3px solid #0A0E06;border-radius:12px;background:var(--ink);color:#fff;
+  font-family:var(--mono);font-size:15px;font-weight:700;text-align:center;outline:none;
+}
+.tw-custom:focus{border-color:var(--slime)}
+.tw-custom[hidden]{display:none}
+
+.tw-go{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;margin-top:18px;padding:18px;border-radius:14px;
+  border:3px solid #0A0E06;background:var(--slime);color:#0A0E06;
+  box-shadow:5px 5px 0 #0A0E06;
+  font-family:var(--heavy);font-size:clamp(15px,3.6vw,18px);
+  letter-spacing:.02em;text-transform:uppercase;transition:transform .12s,box-shadow .12s;
+}
+.tw-go:hover{background:#8EFF45}
+.tw-go:active{transform:translate(3px,3px);box-shadow:2px 2px 0 #0A0E06}
+.tw-go svg{width:19px;height:19px;flex-shrink:0}
+.tw-go .arw{transition:transform .16s}
+.tw-go:hover .arw{transform:translateX(4px)}
+
+.tw-hint{margin-top:12px;font-size:13px;color:var(--dim);font-weight:500}
+.tw-steps{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;
+  margin-top:18px;padding-top:16px;border-top:2px solid var(--line);
+}
+.tw-steps span{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:12.5px;font-weight:600;color:var(--mute);
+}
+.tw-steps b{
+  display:grid;place-items:center;width:20px;height:20px;border-radius:99px;
+  background:var(--line);color:var(--slime);font-family:var(--mono);font-size:11px;
+}
+.tw-soon{
+  max-width:44em;margin:24px auto 0;text-align:center;
+  font-size:13.5px;line-height:1.6;color:var(--dim);font-weight:500;
+}
+.tw-soon b{color:var(--yellow)}
+
+
+/* ═══════════ Z LAUNCH ═══════════ */
+.zl-hero{
+  border:3px solid #0A0E06;border-radius:22px;padding:clamp(22px,4vw,38px);
+  background:linear-gradient(150deg,#0F1A06,var(--panel));
+  box-shadow:8px 8px 0 #0A0E06;position:relative;overflow:hidden;margin-bottom:26px;
+}
+.zl-hero::after{
+  content:'';position:absolute;inset:0;opacity:.06;pointer-events:none;
+  background-image:radial-gradient(var(--slime) 1px,transparent 1px);background-size:18px 18px;
+}
+.zl-top{display:flex;flex-wrap:wrap;gap:18px;align-items:center;position:relative}
+.zl-copy{flex:1;min-width:240px}
+.zl-copy h3{font-family:var(--title);font-size:clamp(22px,4vw,36px);line-height:1.05}
+.zl-copy h3 em{font-style:normal;color:var(--slime)}
+.zl-copy p{margin-top:12px;font-size:15.5px;line-height:1.6;color:var(--mute);font-weight:500;max-width:36em}
+.zl-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+
+.zl-stats{display:flex;gap:1px;background:#0A0E06;border:3px solid #0A0E06;
+  border-radius:14px;overflow:hidden;margin-top:22px;position:relative}
+.zl-stat{flex:1;min-width:88px;padding:14px 12px;background:var(--ink);text-align:center}
+.zl-stat b{display:block;font-family:var(--title);font-size:clamp(16px,2.6vw,21px);color:var(--slime)}
+.zl-stat span{display:block;margin-top:5px;font-family:var(--heavy);font-size:9.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--dim)}
+
+/* filters */
+.zl-bar{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:16px}
+.zl-tabs{display:flex;gap:7px;flex-wrap:wrap}
+.zl-tab{
+  padding:9px 15px;border-radius:99px;border:3px solid #0A0E06;background:var(--panel);
+  font-family:var(--heavy);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--mute);transition:.14s;
+}
+.zl-tab:hover{color:var(--white);border-color:var(--slime)}
+.zl-tab.on{background:var(--slime);color:#0A0E06}
+.zl-search{
+  margin-left:auto;display:flex;align-items:center;gap:9px;padding:9px 15px;
+  border:3px solid #0A0E06;border-radius:99px;background:var(--panel);min-width:180px;
+}
+.zl-search input{flex:1;min-width:0;background:none;border:none;outline:none;color:#fff;
+  font-size:13.5px;font-weight:500}
+.zl-search input::placeholder{color:var(--dim)}
+.zl-search svg{width:15px;height:15px;stroke:var(--dim);fill:none;stroke-width:2}
+
+/* the grid */
+.zl-grid{display:grid;gap:13px;grid-template-columns:repeat(auto-fill,minmax(255px,1fr))}
+.zl-card{
+  border:3px solid #0A0E06;border-radius:18px;padding:15px;background:var(--panel);
+  box-shadow:5px 5px 0 #0A0E06;transition:transform .16s;text-align:left;width:100%;
+  /* Chrome wraps <button> children in an anonymous box that stretches them
+     vertically when the button is a stretched grid item — which inflated the
+     8px progress bar to fill the card. An explicit flex column overrides it. */
+  display:flex;flex-direction:column;align-items:stretch;
+}
+.zl-card > *{flex:0 0 auto}
+.zl-card .zl-blurb{flex:1 1 auto}
+.zl-card:hover{transform:translate(-2px,-2px)}
+.zl-card:active{transform:translate(1px,1px);box-shadow:3px 3px 0 #0A0E06}
+.zl-head{display:flex;gap:12px;align-items:flex-start}
+.zl-pic{
+  width:52px;height:52px;border-radius:13px;flex-shrink:0;display:grid;place-items:center;
+  font-family:var(--title);font-size:19px;color:#0A0E06;border:3px solid #0A0E06;
+}
+.zl-name{flex:1;min-width:0}
+.zl-name b{display:block;font-family:var(--heavy);font-size:14.5px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.zl-name .by{display:block;font-family:var(--mono);font-size:11px;color:var(--slime);margin-top:3px}
+.zl-name .ago{display:block;font-size:11px;color:var(--dim);margin-top:2px}
+.zl-blurb{margin-top:11px;font-size:12.5px;line-height:1.5;color:var(--mute);font-weight:500;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.zl-meta{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px}
+.zl-mc{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--white)}
+.zl-chg{font-family:var(--mono);font-size:12.5px;font-weight:700}
+.zl-chg.up{color:var(--slime)}
+.zl-chg.dn{color:#FF5C4D}
+.zl-prog{height:8px;border-radius:99px;background:var(--ink);border:2px solid #0A0E06;
+  overflow:hidden;margin-top:10px}
+.zl-prog i{display:block;height:100%;background:var(--slime);transition:width .5s}
+.zl-prog.grad i{background:var(--yellow)}
+.zl-foot{display:flex;justify-content:space-between;margin-top:7px;
+  font-family:var(--mono);font-size:10.5px;color:var(--dim)}
+.zl-foot .g{color:var(--yellow);font-weight:700}
+
+/* live feed */
+.zl-feed{border:3px solid #0A0E06;border-radius:16px;background:var(--panel);
+  box-shadow:5px 5px 0 #0A0E06;overflow:hidden;margin-top:26px}
+.zl-feed-h{padding:12px 16px;background:#0A0E06;display:flex;align-items:center;gap:9px}
+.zl-feed-h span{font-family:var(--heavy);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--dim)}
+.zl-feed-h i{width:7px;height:7px;border-radius:99px;background:var(--slime);
+  font-style:normal;animation:pulse 1.7s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.zl-row{display:flex;align-items:center;gap:10px;padding:11px 16px;
+  border-bottom:1px solid var(--line);font-size:12.5px}
+.zl-row:last-child{border-bottom:none}
+.zl-row .act{font-family:var(--heavy);font-size:10.5px;padding:2px 8px;border-radius:99px;
+  letter-spacing:.05em;flex-shrink:0}
+.zl-row .act.b{background:rgba(124,255,42,.16);color:var(--slime)}
+.zl-row .act.s{background:rgba(255,92,77,.16);color:#FF5C4D}
+.zl-row .who{font-family:var(--mono);color:var(--white);flex-shrink:0}
+.zl-row .what{color:var(--mute);flex:1;min-width:0;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.zl-row .amt{font-family:var(--mono);font-weight:700;color:var(--white);flex-shrink:0}
+
+/* ── the launch modal ── */
+.zl-scrim{position:fixed;inset:0;z-index:90;background:rgba(5,8,3,.86);
+  backdrop-filter:blur(6px);display:none;overflow-y:auto;padding:20px}
+.zl-scrim.on{display:block}
+.zl-modal{
+  max-width:520px;margin:20px auto;border:3px solid #0A0E06;border-radius:22px;
+  background:var(--panel);box-shadow:10px 10px 0 #0A0E06;overflow:hidden;
+}
+.zl-m-h{padding:18px 22px;background:#0A0E06;display:flex;align-items:center;gap:12px}
+.zl-m-h b{flex:1;font-family:var(--title);font-size:19px}
+.zl-m-x{width:34px;height:34px;border-radius:99px;background:var(--panel);
+  display:grid;place-items:center;color:var(--mute);flex-shrink:0}
+.zl-m-x:hover{background:var(--slime);color:#0A0E06}
+.zl-m-x svg{width:16px;height:16px;stroke:currentColor;stroke-width:2.6;fill:none;stroke-linecap:round}
+.zl-m-b{padding:22px}
+
+.zl-step{display:flex;gap:6px;margin-bottom:20px}
+.zl-step i{flex:1;height:4px;border-radius:99px;background:var(--line);font-style:normal}
+.zl-step i.on{background:var(--slime)}
+
+.zl-f{margin-bottom:16px}
+.zl-f label{display:block;font-family:var(--heavy);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--dim);margin-bottom:7px}
+.zl-f input,.zl-f textarea{
+  width:100%;padding:13px 15px;border:3px solid #0A0E06;border-radius:12px;
+  background:var(--ink);color:#fff;font-size:14.5px;font-weight:500;outline:none;
+  font-family:var(--body);transition:box-shadow .16s;
+}
+.zl-f textarea{resize:none;line-height:1.5}
+.zl-f input:focus,.zl-f textarea:focus{box-shadow:0 0 0 3px rgba(124,255,42,.28)}
+.zl-f input::placeholder,.zl-f textarea::placeholder{color:var(--dim);font-weight:400}
+.zl-f .hint{margin-top:7px;font-size:11.5px;color:var(--dim);line-height:1.5}
+.zl-f.mono input{font-family:var(--mono);font-weight:700;text-transform:uppercase}
+
+.zl-drop{
+  border:3px dashed var(--line);border-radius:14px;padding:26px;text-align:center;
+  background:var(--ink);transition:border-color .16s;cursor:pointer;
+}
+.zl-drop:hover{border-color:var(--slime)}
+.zl-drop svg{width:28px;height:28px;stroke:var(--dim);fill:none;stroke-width:1.8;margin:0 auto 9px}
+.zl-drop b{display:block;font-size:13.5px;font-weight:600}
+.zl-drop span{display:block;margin-top:4px;font-size:11.5px;color:var(--dim)}
+.zl-drop.has{border-color:var(--slime);border-style:solid;padding:12px}
+.zl-drop img{width:70px;height:70px;border-radius:14px;object-fit:cover;margin:0 auto;
+  border:3px solid #0A0E06}
+
+.zl-fee{
+  border:3px solid #0A0E06;border-radius:14px;background:var(--ink);
+  padding:16px;margin-top:6px;
+}
+.zl-fee-r{display:flex;justify-content:space-between;align-items:baseline;
+  padding:7px 0;font-size:13.5px}
+.zl-fee-r span{color:var(--mute)}
+.zl-fee-r b{font-family:var(--mono);font-weight:700}
+.zl-fee-r.tot{border-top:2px solid var(--line);margin-top:6px;padding-top:12px;font-size:15px}
+.zl-fee-r.tot b{color:var(--slime);font-size:17px}
+.zl-fee-note{margin-top:11px;font-size:11.5px;line-height:1.5;color:var(--dim)}
+
+.zl-wallet{
+  display:flex;align-items:center;gap:12px;padding:14px;border:3px solid #0A0E06;
+  border-radius:14px;background:var(--ink);margin-bottom:18px;
+}
+.zl-wallet .dot{width:10px;height:10px;border-radius:99px;flex-shrink:0}
+.zl-wallet .dot.off{background:#FF5C4D}
+.zl-wallet .dot.on{background:var(--slime)}
+.zl-wallet .t{flex:1;min-width:0}
+.zl-wallet .t b{display:block;font-size:13.5px}
+.zl-wallet .t span{display:block;font-family:var(--mono);font-size:11.5px;color:var(--dim);margin-top:2px}
+
+.zl-go{
+  width:100%;padding:17px;border-radius:14px;border:3px solid #0A0E06;
+  background:var(--slime);color:#0A0E06;box-shadow:5px 5px 0 #0A0E06;
+  font-family:var(--heavy);font-size:15px;letter-spacing:.03em;text-transform:uppercase;
+  transition:transform .12s,box-shadow .12s;
+}
+.zl-go:hover{background:#8EFF45}
+.zl-go:active{transform:translate(3px,3px);box-shadow:2px 2px 0 #0A0E06}
+.zl-go:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.zl-back{width:100%;margin-top:9px;padding:12px;color:var(--dim);
+  font-family:var(--heavy);font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+.zl-back:hover{color:var(--white)}
+
+.zl-done{text-align:center;padding:14px 0}
+.zl-done .tick{width:62px;height:62px;border-radius:99px;background:var(--slime);
+  display:grid;place-items:center;margin:0 auto 16px;border:3px solid #0A0E06}
+.zl-done .tick svg{width:30px;height:30px;stroke:#0A0E06;stroke-width:4;fill:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.zl-done h4{font-family:var(--title);font-size:22px}
+.zl-done p{margin-top:10px;font-size:14px;color:var(--mute);line-height:1.6}
+.zl-done .tk{font-family:var(--mono);font-size:19px;font-weight:700;color:var(--slime);margin-top:14px}
+
+/* app store badges */
+.stores{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:22px}
+.store{
+  display:inline-flex;align-items:center;gap:11px;padding:11px 20px;border-radius:12px;
+  border:3px solid #0A0E06;background:var(--panel);box-shadow:4px 4px 0 #0A0E06;
+  opacity:.62;cursor:default;position:relative;
+}
+.store svg{width:22px;height:22px;fill:var(--white);flex-shrink:0}
+.store .t{text-align:left;line-height:1.15}
+.store .t span{display:block;font-size:9.5px;color:var(--dim);letter-spacing:.04em}
+.store .t b{display:block;font-family:var(--heavy);font-size:13px}
+.store .soon{
+  position:absolute;top:-9px;right:-7px;padding:2px 8px;border-radius:99px;
+  background:var(--yellow);color:#0A0E06;border:2px solid #0A0E06;
+  font-family:var(--heavy);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;
+}
+
+@media(max-width:620px){
+  .zl-hero{box-shadow:5px 5px 0 #0A0E06;border-width:2px}
+  .zl-card,.zl-feed,.zl-modal{box-shadow:4px 4px 0 #0A0E06;border-width:2px}
+  .zl-search{margin-left:0;width:100%;order:3}
+  .zl-grid{grid-template-columns:1fr}
+  .zl-m-b{padding:18px}
+  .zl-row .what{display:none}
+  .stores{gap:9px}
+  .store{padding:10px 15px}
+}
+
+
+/* floating ZDex launcher */
+.zd-fab{
+  position:fixed;right:16px;bottom:18px;z-index:70;display:flex;align-items:center;gap:9px;
+  padding:13px 19px;border-radius:99px;border:3px solid #0A0E06;
+  background:var(--slime);color:#0A0E06;box-shadow:5px 5px 0 #0A0E06;
+  font-family:var(--heavy);font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;
+  transition:transform .14s,box-shadow .14s;
+}
+.zd-fab:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 #0A0E06}
+.zd-fab:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #0A0E06}
+.zd-fab svg{width:17px;height:17px}
+@media(max-width:620px){
+  .zd-fab{right:12px;bottom:14px;padding:12px 16px;font-size:11.5px;box-shadow:4px 4px 0 #0A0E06}
+}
+
+/* ═══════════ ZDEX ═══════════ */
+.zd-wrap{border:3px solid #0A0E06;border-radius:20px;overflow:hidden;
+  background:var(--panel);box-shadow:8px 8px 0 #0A0E06}
+
+/* promoted strip */
+.zd-promo{display:flex;gap:1px;background:#0A0E06;overflow-x:auto}
+.zd-pcard{
+  flex:1;min-width:172px;padding:13px 15px;background:linear-gradient(150deg,#1A2408,var(--panel));
+  text-align:left;position:relative;transition:background .16s;
+}
+.zd-pcard:hover{background:linear-gradient(150deg,#22300B,var(--panel))}
+.zd-pcard .ad{position:absolute;top:8px;right:9px;font-family:var(--heavy);font-size:8px;
+  letter-spacing:.1em;color:var(--yellow);border:1px solid var(--yellow);
+  padding:1px 5px;border-radius:99px}
+.zd-pcard .tk{display:flex;align-items:center;gap:8px}
+.zd-pcard .dot{width:22px;height:22px;border-radius:7px;flex-shrink:0;
+  display:grid;place-items:center;font-family:var(--title);font-size:9px;color:#0A0E06}
+.zd-pcard b{font-family:var(--heavy);font-size:13px}
+.zd-pcard .pr{display:block;font-family:var(--mono);font-size:12.5px;margin-top:7px}
+.zd-pcard .ch{font-family:var(--mono);font-size:11.5px;font-weight:700;margin-left:6px}
+
+/* toolbar */
+.zd-bar{display:flex;flex-wrap:wrap;gap:9px;align-items:center;padding:14px 16px;
+  border-bottom:3px solid #0A0E06;background:var(--ink)}
+.zd-chip{
+  padding:7px 13px;border-radius:99px;border:2px solid var(--line);background:var(--panel);
+  font-family:var(--heavy);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--mute);transition:.14s;
+}
+.zd-chip:hover{border-color:var(--slime);color:var(--white)}
+.zd-chip.on{background:var(--slime);color:#0A0E06;border-color:#0A0E06}
+.zd-live{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:99px;
+  border:2px solid var(--line);font-family:var(--heavy);font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;white-space:nowrap}
+.zd-live::before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor}
+.zd-live.on{color:var(--slime);border-color:var(--slime)}
+.zd-live.on::before{animation:lv 1.8s ease-in-out infinite}
+@keyframes lv{0%,100%{opacity:1}50%{opacity:.2}}
+.zd-live.wait{color:var(--dim)}
+.zd-live.off{color:var(--yellow);border-color:var(--yellow)}
+.preview{display:inline-block;margin-left:10px;padding:3px 10px;border:2px solid var(--yellow);
+  border-radius:99px;background:transparent;color:var(--yellow);font-family:var(--heavy);
+  font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;vertical-align:middle}
+.zd-find{margin-left:auto;display:flex;align-items:center;gap:8px;padding:7px 13px;
+  border:2px solid var(--line);border-radius:99px;background:var(--panel);min-width:150px}
+.zd-find input{flex:1;min-width:0;background:none;border:none;outline:none;color:#fff;font-size:12.5px}
+.zd-find input::placeholder{color:var(--dim)}
+.zd-find svg{width:13px;height:13px;stroke:var(--dim);fill:none;stroke-width:2.2}
+
+/* the table */
+.zd-scroll{overflow-x:auto}
+.zd-tbl{width:100%;border-collapse:collapse;min-width:840px}
+.zd-tbl th{
+  padding:10px 12px;text-align:right;font-family:var(--heavy);font-size:9.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--dim);
+  background:var(--ink);border-bottom:2px solid var(--line);white-space:nowrap;cursor:pointer;
+  position:sticky;top:0;
+}
+.zd-tbl th:first-child,.zd-tbl th:nth-child(2){text-align:left}
+.zd-tbl th:hover{color:var(--slime)}
+.zd-tbl th.sorted{color:var(--slime)}
+.zd-tbl td{padding:11px 12px;text-align:right;border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+.zd-tbl td:first-child,.zd-tbl td:nth-child(2){text-align:left}
+.zd-tbl tr{transition:background .12s;cursor:pointer}
+.zd-tbl tbody tr:hover{background:rgba(124,255,42,.05)}
+.zd-rank{color:var(--dim);font-size:11.5px;width:34px}
+.zd-pair{display:flex;align-items:center;gap:10px;min-width:170px}
+.zd-ico{width:28px;height:28px;border-radius:8px;flex-shrink:0;display:grid;place-items:center;
+  font-family:var(--title);font-size:10px;color:#0A0E06;border:2px solid #0A0E06}
+.zd-pn{min-width:0}
+.zd-pn b{display:block;font-family:var(--heavy);font-size:12.5px;letter-spacing:.01em}
+.zd-pn span{display:block;font-family:var(--mono);font-size:10px;color:var(--slime);margin-top:2px}
+.up{color:var(--slime)}
+.dn{color:#FF5C4D}
+.zd-badge{display:inline-block;padding:1px 6px;border-radius:99px;font-family:var(--heavy);
+  font-size:8px;letter-spacing:.06em;margin-left:6px;vertical-align:middle}
+.zd-badge.z{background:rgba(124,255,42,.16);color:var(--slime)}
+.zd-badge.new{background:rgba(240,182,0,.16);color:var(--yellow)}
+
+/* mini sparkline */
+.spark{width:62px;height:22px;display:block}
+
+/* footer of the table */
+.zd-foot{padding:13px 16px;background:var(--ink);display:flex;flex-wrap:wrap;gap:12px;
+  align-items:center;justify-content:space-between;font-size:11.5px;color:var(--dim)}
+.zd-foot b{color:var(--slime);font-family:var(--mono)}
+
+/* promote panel */
+.zd-adbox{
+  border:3px dashed var(--yellow);border-radius:18px;padding:clamp(20px,3.5vw,30px);
+  background:linear-gradient(150deg,#211A05,var(--panel));margin-top:24px;
+}
+.zd-adbox h4{font-family:var(--title);font-size:clamp(19px,3.2vw,27px);line-height:1.1}
+.zd-adbox h4 em{font-style:normal;color:var(--yellow)}
+.zd-adbox p{margin-top:11px;font-size:14.5px;line-height:1.6;color:var(--mute);
+  font-weight:500;max-width:40em}
+.zd-slots{display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  margin-top:20px}
+.zd-slot{border:3px solid #0A0E06;border-radius:14px;padding:16px;background:var(--ink)}
+.zd-slot .p{font-family:var(--title);font-size:21px;color:var(--yellow)}
+.zd-slot b{display:block;font-family:var(--heavy);font-size:12.5px;margin-top:7px}
+.zd-slot span{display:block;font-size:11.5px;color:var(--dim);margin-top:5px;line-height:1.45}
+
+@media(max-width:620px){
+  .zd-wrap,.zd-adbox{box-shadow:5px 5px 0 #0A0E06;border-width:2px}
+  .zd-find{margin-left:0;width:100%;order:9}
+  .zd-tbl td,.zd-tbl th{padding:9px 9px}
+}
+
+
+/* ═══════════ ZDEX TOKEN VIEW ═══════════ */
+.zt-scrim{position:fixed;inset:0;z-index:95;background:rgba(4,7,3,.9);
+  backdrop-filter:blur(8px);display:none;overflow-y:auto;padding:0}
+.zt-scrim.on{display:block}
+.zt-sheet{max-width:1020px;margin:0 auto;min-height:100dvh;background:var(--ink);
+  border-left:3px solid #0A0E06;border-right:3px solid #0A0E06}
+
+.zt-top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:13px;
+  padding:14px 18px;background:rgba(10,14,6,.96);backdrop-filter:blur(14px);
+  border-bottom:3px solid #0A0E06}
+.zt-x{width:38px;height:38px;border-radius:99px;flex-shrink:0;display:grid;place-items:center;
+  background:var(--panel);color:var(--mute);border:2px solid var(--line)}
+.zt-x:hover{background:var(--slime);color:#0A0E06;border-color:#0A0E06}
+.zt-x svg{width:16px;height:16px;stroke:currentColor;stroke-width:2.6;fill:none;stroke-linecap:round}
+.zt-id{display:flex;align-items:center;gap:11px;min-width:0;flex:1}
+.zt-ico{width:42px;height:42px;border-radius:12px;flex-shrink:0;display:grid;place-items:center;
+  font-family:var(--title);font-size:15px;color:#0A0E06;border:3px solid #0A0E06}
+.zt-nm{min-width:0}
+.zt-nm b{display:block;font-family:var(--title);font-size:18px;line-height:1.1}
+.zt-nm span{display:block;font-family:var(--mono);font-size:11.5px;color:var(--slime);margin-top:3px}
+.zt-px{text-align:right;flex-shrink:0}
+.zt-px b{display:block;font-family:var(--mono);font-size:20px;font-weight:700}
+.zt-px span{display:block;font-family:var(--mono);font-size:13px;font-weight:700;margin-top:2px}
+
+.zt-body{padding:18px}
+.zt-grid{display:grid;gap:16px;grid-template-columns:1.55fr 1fr}
+@media(max-width:900px){.zt-grid{grid-template-columns:1fr}}
+
+/* chart */
+.zt-chart{border:3px solid #0A0E06;border-radius:18px;background:var(--panel);overflow:hidden}
+.zt-ranges{display:flex;gap:1px;background:#0A0E06;border-bottom:3px solid #0A0E06}
+.zt-r{flex:1;padding:9px 4px;background:var(--panel);font-family:var(--heavy);font-size:10.5px;
+  letter-spacing:.05em;color:var(--dim);transition:.14s}
+.zt-r:hover{color:var(--white)}
+.zt-r.on{background:var(--slime);color:#0A0E06}
+.zt-canvas{padding:14px;position:relative}
+.zt-canvas svg{width:100%;height:210px;display:block;overflow:visible}
+.zt-hair{position:absolute;pointer-events:none;font-family:var(--mono);font-size:10.5px;
+  background:#0A0E06;color:var(--white);padding:3px 7px;border-radius:6px;
+  border:1px solid var(--line);opacity:0;transition:opacity .12s}
+
+/* stat cells */
+.zt-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#0A0E06;
+  border-top:3px solid #0A0E06}
+.zt-st{padding:11px 12px;background:var(--panel);text-align:center}
+.zt-st span{display:block;font-family:var(--heavy);font-size:8.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--dim)}
+.zt-st b{display:block;font-family:var(--mono);font-size:13.5px;margin-top:5px}
+
+/* side panel */
+.zt-side{display:flex;flex-direction:column;gap:14px}
+.zt-card{border:3px solid #0A0E06;border-radius:18px;background:var(--panel);padding:16px}
+.zt-card h5{font-family:var(--heavy);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:12px}
+
+/* the creator block — the thing DexScreener cannot show */
+.zt-who{border-color:var(--slime)}
+.zt-whorow{display:flex;align-items:center;gap:12px}
+.zt-av{width:42px;height:42px;border-radius:12px;flex-shrink:0;display:grid;place-items:center;
+  font-family:var(--title);font-size:16px;color:#0A0E06;border:3px solid #0A0E06;
+  background:var(--slime)}
+.zt-whoinfo{flex:1;min-width:0}
+.zt-whoinfo b{display:block;font-family:var(--mono);font-size:14px;color:var(--slime)}
+.zt-whoinfo span{display:block;font-size:11.5px;color:var(--dim);margin-top:3px}
+.zt-track{display:grid;gap:7px;margin-top:14px;padding-top:13px;border-top:2px solid var(--line)}
+.zt-trow{display:flex;align-items:center;justify-content:space-between;font-size:12px}
+.zt-trow span{color:var(--mute)}
+.zt-trow b{font-family:var(--mono);font-weight:700}
+
+/* safety checks */
+.zt-checks{display:grid;gap:8px}
+.zt-chk{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;line-height:1.45}
+.zt-chk .m{width:16px;height:16px;flex-shrink:0;margin-top:1px}
+.zt-chk .m svg{width:16px;height:16px;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.zt-chk.ok .m svg{stroke:var(--slime)}
+.zt-chk.no .m svg{stroke:#FF5C4D}
+.zt-chk.warn .m svg{stroke:var(--yellow)}
+.zt-chk b{display:block;font-weight:600}
+.zt-chk em{display:block;font-style:normal;color:var(--dim);font-size:11.5px;margin-top:2px}
+
+/* trade tape */
+.zt-tape{max-height:250px;overflow-y:auto}
+.zt-trade{display:flex;align-items:center;gap:9px;padding:8px 0;
+  border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px}
+.zt-trade:last-child{border-bottom:none}
+.zt-trade .s{font-family:var(--heavy);font-size:9px;padding:2px 6px;border-radius:99px;flex-shrink:0}
+.zt-trade .s.b{background:rgba(124,255,42,.16);color:var(--slime)}
+.zt-trade .s.s{background:rgba(255,92,77,.16);color:#FF5C4D}
+.zt-trade .w{flex:1;min-width:0;color:var(--mute);overflow:hidden;text-overflow:ellipsis}
+.zt-trade .a{font-weight:700;flex-shrink:0}
+
+/* holders bar */
+.zt-hold{display:flex;height:10px;border-radius:99px;overflow:hidden;
+  border:2px solid #0A0E06;margin-bottom:11px}
+.zt-hold i{display:block;height:100%}
+.zt-hkey{display:flex;flex-wrap:wrap;gap:11px;font-size:11px;color:var(--dim)}
+.zt-hkey span{display:inline-flex;align-items:center;gap:5px}
+.zt-hkey i{width:9px;height:9px;border-radius:3px}
+
+/* buy box */
+.zt-buy{display:flex;gap:9px}
+.zt-buy .btn{flex:1;padding:14px}
+
+/* reveal */
+.up{opacity:0;transform:translateY(22px);
+  transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+.up.in{opacity:1;transform:none}
+
+/* ── large desktop: let it breathe ── */
+@media(min-width:1400px){
+  .hwrap{max-width:1280px;gap:72px}
+  .sec{max-width:1280px}
+}
+
+/* ── tablet ── */
+@media(max-width:1000px){
+  .nav .links{gap:18px}
+  .nav .links a{font-size:13.5px}
+  .tok{grid-template-columns:1fr;gap:30px}
+  .ring{max-width:250px}
+}
+
+@media(max-width:900px){
+  .hwrap{grid-template-columns:1fr;text-align:center;gap:20px}
+  .sub{margin-left:auto;margin-right:auto}
+  .ca{margin-left:auto;margin-right:auto}
+  .hbtns{justify-content:center}
+  .tag{transform:none}
+  .mascot{order:-1}
+  .mascot img{max-width:min(330px,64vw)}
+  .nav .links{display:none}
+  .why{box-shadow:6px 6px 0 #0A0E06}
+}
+
+/* ── phone ── */
+@media(max-width:620px){
+  .ticker div{font-size:11px;gap:26px}
+  .ticker span{gap:26px}
+  .nav{top:30px;padding:10px var(--gut);gap:10px}
+  .nav .logo{font-size:16px}
+  .nav .logo img{width:32px}
+  .nav .right .btn-out{display:none}
+  .nav .right .zdnav{display:inline-flex}
+  .btn{padding:10px 15px;font-size:12px;border-width:2px;box-shadow:3px 3px 0 #0A0E06}
+
+  h1{text-shadow:3px 3px 0 #0A0E06}
+  .sub{font-size:15.5px}
+  .hbtns{flex-direction:column;align-items:stretch}
+  .hbtns .btn{width:100%;padding:15px}
+
+  .ca-body{flex-wrap:wrap;gap:8px}
+  .ca-body code{flex:1 1 100%;font-size:12px;white-space:normal;word-break:break-all}
+  .ca-copy{width:100%}
+
+  .stat{border-right:none;border-bottom:3px solid #0A0E06;padding:16px}
+  .stat:last-child{border-bottom:none}
+
+  .tweetcard{box-shadow:5px 5px 0 #0A0E06;border-width:2px}
+  .tw-cmd{padding:14px}
+  .amt{padding:8px 13px;font-size:11.5px;border-width:2px}
+  .tw-steps{flex-direction:column;align-items:center;gap:9px}
+
+  .step,.vow,.rd,.soc,.claim{box-shadow:4px 4px 0 #0A0E06;border-width:2px}
+  .step{padding:19px}
+  .why{padding:22px;box-shadow:5px 5px 0 #0A0E06;border-width:2px}
+  .cbox{padding:12px 14px;border-width:2px}
+  .cbox input,.cbox .sfx{font-size:16px}
+  .al{padding:11px 12px}
+  .al .t span{font-size:11.5px}
+  .social{gap:9px}
+  .soc{padding:11px 16px;font-size:11.5px}
+}
+
+/* ── small phone ── */
+@media(max-width:380px){
+  .tw-cmd code{font-size:12px}
+  .tw-amts{gap:6px}
+  .amt{padding:7px 11px;font-size:11px}
+  .stat b{font-size:22px}
+}
+
+/* ── short landscape: don't waste vertical space ── */
+@media(max-height:520px) and (orientation:landscape){
+  .hero{padding-top:20px;padding-bottom:30px}
+  .mascot img{max-width:220px}
+  h1{font-size:clamp(30px,7vw,46px)}
+}
+
+/* ── touch: no hover lifts, bigger targets ── */
+@media(hover:none){
+  .step:hover,.soc:hover{transform:none}
+  .btn,.tw-go,.amt,.ca-copy{min-height:44px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .up{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ TICKER ═══════════ -->
+<div class="ticker" aria-hidden="true">
+  <div>
+    <span>$GENZE</span><span>GENZE FX is live</span><span>Every holder gets a .z</span><span>300M fixed supply</span>
+    <span>No team dump</span><span>Built on Solana</span>
+    <span>$GENZE</span><span>GENZE FX is live</span><span>Every holder gets a .z</span><span>300M fixed supply</span>
+    <span>No team dump</span><span>Built on Solana</span>
+  </div>
+</div>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="nav">
+  <a class="logo" href="#top">
+    <img src="assets/genze-81da5ad3.png" alt="">
+    GENZE
+  </a>
+  <div class="links">
+    <a href="fx/">GENZE FX</a>
+    <a href="#zdex">ZDex</a>
+    <a href="#launch">Z Launch</a>
+    <a href="#tweet">Tweet to buy</a>
+    <a href="#buy">How to buy</a>
+    <a href="#tok">Tokenomics</a>
+    <a href="#road">Roadmap</a>
+    <a href="#name">Get your .z</a>
+  </div>
+  <div class="right">
+    <a class="btn btn-gold" href="fx/">GENZE FX</a>
+    <a class="btn btn-out" href="#name">Claim .z</a>
+    <a class="btn btn-buy" href="#buy">Buy $GENZE</a>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero" id="top">
+  <div class="hwrap">
+    <div>
+      <span class="tag">◆ Not live yet — reserve first</span>
+      <h1><span class="g">Three frogs.</span><span class="w">One namespace.</span></h1>
+      <p class="sub">
+        Every memecoin gives you a chart. <b>$GENZE gives you a name.</b>
+        Hold it and <span class="z">yourname.z</span> is yours across a real social
+        platform — posts, market, communities. Permanently.
+      </p>
+      <div class="hbtns">
+        <a class="btn btn-gold" href="fx/">GENZE FX — $78</a>
+        <a class="btn btn-buy" href="#zdex">Open ZDex</a>
+        <a class="btn btn-out" href="#products">See everything</a>
+      </div>
+
+      <div class="ca">
+        <div class="ca-top"><span>Contract address</span><i>Not deployed yet</i></div>
+        <div class="ca-body">
+          <code id="caText">Live at launch — reserve your .z in the meantime</code>
+          <button class="ca-copy" id="caCopy">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mascot">
+      <img src="assets/genze-05ac8a5e.png" alt="The GENZE frogs">
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════ STATS ═══════════ -->
+<div class="stats">
+  <div class="stat"><b>300M</b><span>Fixed supply</span></div>
+  <div class="stat"><b>0%</b><span>Buy / sell tax</span></div>
+  <div class="stat"><b>12mo</b><span>Team cliff</span></div>
+  <div class="stat"><b>∞</b><span>Name ownership</span></div>
+</div>
+
+<!-- ═══════════ WHY ═══════════ -->
+<section class="sec">
+  <div class="why up">
+    <h3>Most tokens have nothing behind them.<br>This one has a namespace.</h3>
+    <p>
+      GENZE isn't a coin looking for a use. It's the token of a working social platform
+      where your name is the account — you post with it, sell with it, build with it.
+      Sell the name later if you want; it's an asset, not a rented username.
+    </p>
+    <span class="nm"><i>yourname</i><b>.z</b></span>
+  </div>
+</section>
+
+<!-- ═══════════ PRODUCTS ═══════════ -->
+<section class="sec" id="products">
+  <div class="sec-h up">
+    <h2>One account. <em>Every product.</em></h2>
+    <p>Your .z name signs you in to all of it, and GENZE pays for all of it at a discount.</p>
+  </div>
+  <div class="road">
+    <div class="rd done up">
+      <p class="ph">Live now</p>
+      <h4>GENZE FX</h4>
+      <p>Automated gold scalping for MetaTrader 5. Twelve independent stop conditions. $78 per device, or half that in GENZE.</p>
+      <a class="btn btn-buy" href="fx/" style="margin-top:15px">Open GENZE FX</a>
+    </div>
+    <div class="rd now up">
+      <p class="ph">On this page</p>
+      <h4>ZDex</h4>
+      <p>Live Solana market data. GENZE FX covers gold on MT5; ZDex covers the crypto side.</p>
+      <a class="btn btn-out" href="#zdex" style="margin-top:15px">Watch the market</a>
+    </div>
+    <div class="rd up">
+      <p class="ph">In build</p>
+      <h4>Z Launch</h4>
+      <p>Launch a coin from a name people already know, instead of another anonymous wallet.</p>
+      <a class="btn btn-out" href="#launch" style="margin-top:15px">See the launchpad</a>
+    </div>
+    <div class="rd up">
+      <p class="ph">Open now</p>
+      <h4>.z names</h4>
+      <p>Claim the name you want and mint it to your own wallet. You hold it, not us.</p>
+      <a class="btn btn-out" href="#name" style="margin-top:15px">Claim your name</a>
+    </div>
+  </div>
+</section>
+
+<button class="zd-fab" onclick="document.getElementById('zdex').scrollIntoView({behavior:'smooth'})" aria-label="Open ZDex">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 17l5-6 4 3 4-6 5 5"/><path d="M3 21h18"/>
+  </svg>
+  <span>ZDex</span>
+</button>
+
+<!-- ═══════════ ZDEX ═══════════ -->
+<section class="sec" id="zdex">
+  <div class="sec-h up">
+    <h2>Z<em>Dex</em></h2>
+    <p>Live Solana market data, with a real .z name attached to the coins launched here —
+       which no other screener can show you.</p>
+  </div>
+
+  <div class="zd-wrap up">
+    <div class="zd-promo" id="zdpromo"></div>
+
+    <div class="zd-bar">
+      <button class="zd-chip on" data-z="trend">Trending</button>
+      <button class="zd-chip" data-z="new">New</button>
+      <button class="zd-chip" data-z="gain">Gainers</button>
+      <button class="zd-chip" data-z="vol">Top volume</button>
+      <button class="zd-chip" data-z="zmain">ZMain only</button>
+      <span class="zd-live wait" id="zdlive">Connecting…</span>
+      <div class="zd-find">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
+        <input id="zdq" placeholder="Search token or name" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="zd-scroll">
+      <table class="zd-tbl">
+        <thead>
+          <tr>
+            <th data-s="rank">#</th>
+            <th data-s="name">Token</th>
+            <th data-s="price">Price</th>
+            <th data-s="m5">5m</th>
+            <th data-s="h1">1h</th>
+            <th data-s="h24" class="sorted">24h</th>
+            <th data-s="vol">Volume 24h</th>
+            <th data-s="liq">Liquidity</th>
+            <th data-s="mc">Market cap</th>
+            <th>Chart</th>
+          </tr>
+        </thead>
+        <tbody id="zdbody"></tbody>
+      </table>
+    </div>
+
+    <div class="zd-foot">
+      <span>Showing <b id="zdcount">0</b> pairs · refreshes every 45s</span>
+      <span>Data via <a href="https://dexscreener.com" style="color:var(--slime)">DexScreener</a></span>
+    </div>
+  </div>
+
+  <div class="zd-adbox up">
+    <h4>Get seen. <em>Promote on ZDex.</em></h4>
+    <p>
+      Paid in GENZE, half burned. Slots are limited and always labelled as promoted —
+      a screener that hides its ads is a screener nobody trusts.
+    </p>
+    <div class="zd-slots">
+      <div class="zd-slot">
+        <span class="p">$40</span>
+        <b>Promoted strip · 8h</b>
+        <span>Top of ZDex, above the table. Four slots, rotating.</span>
+      </div>
+      <div class="zd-slot">
+        <span class="p">$120</span>
+        <b>Promoted strip · 24h</b>
+        <span>Same placement, full day. Best value per hour.</span>
+      </div>
+      <div class="zd-slot">
+        <span class="p">$300</span>
+        <b>Featured · 24h</b>
+        <span>Pinned first, plus a banner on the token's own page.</span>
+      </div>
+    </div>
+    <button class="btn btn-buy" style="margin-top:20px" onclick="zlOpen()">Promote a coin</button>
+  </div>
+</section>
+
+<!-- ═══════════ ZDEX TOKEN VIEW ═══════════ -->
+<div class="zt-scrim" id="ztscrim" role="dialog" aria-modal="true" aria-label="Token detail">
+  <div class="zt-sheet" id="ztsheet"></div>
+</div>
+
+<!-- ═══════════ Z LAUNCH ═══════════ -->
+<section class="sec" id="launch">
+  <div class="sec-h up">
+    <h2>Z <em>Launch</em><span class="preview" data-preview>Preview</span></h2>
+    <p>Launch your own coin in under a minute. Connect a wallet, fill three fields, done.</p>
+  </div>
+
+  <div class="zl-hero up">
+    <div class="zl-top">
+      <div class="zl-copy">
+        <h3>Your coin.<br><em>Your name on it.</em></h3>
+        <p>
+          Every coin launched here is signed by a <span class="mono" style="color:var(--slime)">.z</span>
+          name — the same one you post and trade with. Buyers see who made it and what they
+          made before. No throwaway wallets.
+        </p>
+        <div class="zl-cta">
+          <button class="btn btn-buy" onclick="zlOpen()">Launch now</button>
+          <a class="btn btn-out" href="#zdex">Watch the market</a>
+        </div>
+      </div>
+      <img src="assets/genze-81da5ad3.png" alt="" style="width:min(180px,34vw);flex-shrink:0;
+        filter:drop-shadow(0 12px 26px rgba(0,0,0,.6))">
+    </div>
+
+    <div class="zl-stats">
+      <div class="zl-stat"><b>$8</b><span>Flat fee</span></div>
+      <div class="zl-stat"><b>60s</b><span>To launch</span></div>
+      <div class="zl-stat"><b>0%</b><span>Of your supply</span></div>
+      <div class="zl-stat"><b>100%</b><span>Yours</span></div>
+    </div>
+  </div>
+
+  <div class="zl-bar up" id="zl-live">
+    <div class="zl-tabs">
+      <button class="zl-tab on" data-f="hot">Hot</button>
+      <button class="zl-tab" data-f="new">New</button>
+      <button class="zl-tab" data-f="soon">Graduating</button>
+      <button class="zl-tab" data-f="done">Graduated</button>
+    </div>
+    <div class="zl-search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
+      <input id="zlq" placeholder="Search coins" autocomplete="off">
+    </div>
+  </div>
+
+  <div class="zl-grid" id="zlgrid"></div>
+
+  <div class="zl-feed up">
+    <div class="zl-feed-h"><i></i><span>Live trades</span></div>
+    <div id="zlfeed"></div>
+  </div>
+
+  <p class="tw-soon up" style="margin-top:22px">
+    <b>Z Launch is not live yet.</b> Everything above is a working preview so you can see
+    exactly how it will behave. No wallet connects, no coin is created, and no money moves.
+  </p>
+</section>
+
+<!-- ═══════════ LAUNCH MODAL ═══════════ -->
+<div class="zl-scrim" id="zlscrim" role="dialog" aria-modal="true" aria-label="Launch a coin">
+  <div class="zl-modal">
+    <div class="zl-m-h">
+      <b>Launch a coin</b>
+      <button class="zl-m-x" onclick="zlClose()" aria-label="Close">
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="zl-m-b" id="zlbody"></div>
+  </div>
+</div>
+
+<!-- ═══════════ TWEET TO BUY ═══════════ -->
+<section class="sec" id="tweet">
+  <div class="sec-h up">
+    <h2>The <em>easy</em> way<span class="preview" data-preview>Preview</span></h2>
+    <p>No app. No seed phrase. No exchange. Just tweet.</p>
+  </div>
+
+  <div class="tweetcard up">
+    <p class="tw-label">Tweet this</p>
+
+    <div class="tw-cmd">
+      <code id="twCmd">@genzebot buy $<span id="twAmt">10</span> $GENZE</code>
+    </div>
+
+    <div class="tw-amts" role="group" aria-label="Amount">
+      <button class="amt on" data-a="10">$10</button>
+      <button class="amt" data-a="25">$25</button>
+      <button class="amt" data-a="50">$50</button>
+      <button class="amt" data-a="100">$100</button>
+      <button class="amt" data-a="custom">Other</button>
+    </div>
+    <input class="tw-custom" id="twCustom" type="number" min="1" max="10000"
+           inputmode="numeric" placeholder="Enter an amount in USD" aria-label="Custom amount" hidden>
+
+    <button class="tw-go" id="twGo">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.7 3h3.3l-7.2 8.2L22.3 21h-6.6l-5.2-6.8L4.6 21H1.3l7.7-8.8L1.7 3h6.8l4.7 6.2zm-1.2 16h1.8L7.6 4.8H5.7z"/></svg>
+      Tweet it
+      <span class="arw">→</span>
+    </button>
+
+    <p class="tw-hint">X opens with the text ready. Just hit post.</p>
+
+    <div class="tw-steps">
+      <span><b>1</b> Tap tweet</span>
+      <span><b>2</b> Hit post</span>
+      <span><b>3</b> Bot replies with your link</span>
+    </div>
+  </div>
+
+  <p class="tw-soon up">
+    <b>Not live yet.</b> The bot goes up with the token. Tapping the button today
+    still opens X so you can see exactly how it will work — nothing is bought,
+    and no funds move.
+  </p>
+</section>
+
+<!-- ═══════════ HOW TO BUY ═══════════ -->
+<section class="sec" id="buy">
+  <div class="sec-h up">
+    <h2>How to <em>buy</em></h2>
+    <p>Four steps. If you've never touched crypto, step two is the only new bit.</p>
+  </div>
+  <div class="steps">
+    <div class="step up">
+      <div class="n">1</div>
+      <h4>Get a wallet</h4>
+      <p>Phantom on iOS, Android or as a browser extension. Free, takes two minutes.</p>
+    </div>
+    <div class="step up">
+      <div class="n">2</div>
+      <h4>Put SOL in it</h4>
+      <p>Buy SOL inside Phantom with a card, or send it from any exchange.</p>
+    </div>
+    <div class="step up">
+      <div class="n">3</div>
+      <h4>Swap for $GENZE</h4>
+      <p>Paste the contract address into Jupiter or Raydium. Only ever use the address on this page.</p>
+    </div>
+    <div class="step up">
+      <div class="n">4</div>
+      <h4>Claim your .z</h4>
+      <p>Connect the same wallet on GenzeHub and take the name you reserved.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TOKENOMICS ═══════════ -->
+<section class="sec" id="tok">
+  <div class="sec-h up">
+    <h2>Token<em>omics</em></h2>
+    <p>Published before launch so it can be held against us.</p>
+  </div>
+
+  <div class="tok up">
+    <div class="ring">
+      <svg viewBox="0 0 42 42" id="ring" role="img" aria-label="Allocation"></svg>
+      <div class="mid"><b>300M</b><span>Fixed</span></div>
+    </div>
+    <div class="alloc" id="alloc"></div>
+  </div>
+
+  <div class="vows">
+    <div class="vow yes up"><b>✓ Liquidity locked</b><span>Pool tokens burned at launch. Nobody can pull it, including us.</span></div>
+    <div class="vow yes up"><b>✓ Team vests</b><span>13%, twelve-month cliff, four-year linear. No day-one dump.</span></div>
+    <div class="vow yes up"><b>✓ Burns on use</b><span>Auction bids and post boosts are destroyed. Supply drops as the platform gets busier.</span></div>
+    <div class="vow no up"><b>✗ No revenue share</b><span>Holders get no cut of platform revenue. That's a security in most places.</span></div>
+    <div class="vow no up"><b>✗ No staking yield</b><span>No returns paid from treasury. Paying holders with other holders' money isn't a business.</span></div>
+    <div class="vow no up"><b>✗ Never required</b><span>Every paid action works in SOL or card. You never have to hold GENZE to use GenzeHub.</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ ROADMAP ═══════════ -->
+<section class="sec" id="road">
+  <div class="sec-h up">
+    <h2>The <em>plan</em></h2>
+    <p>In this order, on purpose. Nothing is charged for until it exists.</p>
+  </div>
+  <div class="road">
+    <div class="rd done up">
+      <p class="ph">Phase 1</p>
+      <h4>The platform</h4>
+      <p>Feed, profiles, communities, market. Free to read, a name to post.</p>
+      <span class="st">Live now</span>
+    </div>
+    <div class="rd now up">
+      <p class="ph">Phase 2</p>
+      <h4>Reserve names</h4>
+      <p>Free. Holds your name and your place in the queue.</p>
+      <span class="st">Open now</span>
+    </div>
+    <div class="rd up">
+      <p class="ph">Phase 3</p>
+      <h4>Names on-chain</h4>
+      <p>Solana registry, audited. Early reservers minted first, at our cost.</p>
+      <span class="st wait">After audit</span>
+    </div>
+    <div class="rd up">
+      <p class="ph">Phase 4</p>
+      <h4>$GENZE launch</h4>
+      <p>Once the namespace has real demand and there's liquidity to support it.</p>
+      <span class="st wait">Later</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CLAIM ═══════════ -->
+<section class="sec" id="name">
+  <div class="claim up">
+    <h3>Take your <em>name</em> now.<br>It's free.</h3>
+    <p>
+      Reserving costs nothing and holds it until the registry opens.
+      The good ones go first — they always do.
+    </p>
+    <div class="cbox">
+      <input id="zin" placeholder="yourname" autocomplete="off" spellcheck="false" maxlength="20" aria-label="Check a name">
+      <span class="sfx">.z</span>
+      <span class="ind" id="zind"></span>
+    </div>
+    <p class="cmsg" id="zmsg">3–20 characters. Letters, numbers, underscore.</p>
+    <a class="btn btn-buy" id="zgo" href="#name" style="margin-top:6px">Reserve it free</a>
+
+    <div class="stores">
+      <span class="store">
+        <span class="soon">Soon</span>
+        <svg viewBox="0 0 24 24"><path d="M17.05 12.9c.03 2.9 2.54 3.86 2.57 3.87-.02.07-.4 1.38-1.33 2.73-.8 1.17-1.63 2.33-2.94 2.36-1.29.02-1.7-.77-3.18-.77-1.47 0-1.93.75-3.15.79-1.26.05-2.22-1.26-3.03-2.42-1.65-2.4-2.91-6.77-1.22-9.72.84-1.47 2.35-2.4 3.98-2.42 1.24-.02 2.42.84 3.18.84.76 0 2.19-1.03 3.69-.88.63.03 2.4.25 3.53 1.92-.09.06-2.11 1.24-2.1 3.7M14.6 4.2c.67-.82 1.12-1.95 1-3.08-.97.04-2.14.65-2.83 1.46-.62.72-1.16 1.87-1.02 2.98 1.08.08 2.18-.55 2.85-1.36"/></svg>
+        <span class="t"><span>Coming soon on the</span><b>App Store</b></span>
+      </span>
+      <span class="store">
+        <span class="soon">Soon</span>
+        <svg viewBox="0 0 24 24"><path d="M3.6 2.4a1.6 1.6 0 0 0-.5 1.2v16.8a1.6 1.6 0 0 0 .5 1.2l.1.1 9.4-9.4v-.2L3.7 2.3zM16.4 15.6l-3.1-3.1v-.2l3.1-3.1.1.1 3.7 2.1c1.1.6 1.1 1.6 0 2.2zM15.3 16.7l-3.2-3.2-9.5 9.5c.4.4.9.4 1.6.1zM4.2 1.7l11.1 6.3-3.2 3.2z"/></svg>
+        <span class="t"><span>Coming soon on</span><b>Google Play</b></span>
+      </span>
+    </div>
+
+    <div class="social">
+      <a class="soc" href="#" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.7 3h3.3l-7.2 8.2L22.3 21h-6.6l-5.2-6.8L4.6 21H1.3l7.7-8.8L1.7 3h6.8l4.7 6.2zm-1.2 16h1.8L7.6 4.8H5.7z"/></svg>
+        X / Twitter
+      </a>
+      <a class="soc" href="#" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 19 18.1c-.2 1-.8 1.2-1.6.8l-4.5-3.3-2.2 2.1c-.2.2-.5.5-1 .5l.3-4.6 8.4-7.6c.4-.3-.1-.5-.6-.2L7.4 12.3 3 10.9c-1-.3-1-1 .2-1.4l17.3-6.7c.8-.3 1.5.2 1.4 1.5z"/></svg>
+        Telegram
+      </a>
+      <a class="soc" href="fx/">GENZE FX</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="risk">
+    <b style="color:var(--mute)">Nothing here is investment advice.</b>
+    $GENZE has not launched and no token exists yet. Tokens can go to zero, and most do.
+    Only ever use a contract address published on this site. Name reservations are free
+    and carry no obligation to buy anything.
+  </p>
+  <div class="lnk">
+    <a href="fx/">GENZE FX</a>
+    <a href="#products">Products</a>
+    <a href="#name">Names</a>
+    <a href="#tok">Tokenomics</a>
+  </div>
+  <p class="cr">© 2026 GenzeHub</p>
+</footer>
+
+<script src="config.js"></script>
+<script>
+/* ═══════════ PREVIEW BADGES ═══════════
+   Anything still simulated says so, until you switch it off in config.js. */
+(function(){
+  if (window.GENZE && window.GENZE.showPreviewBadges === false){
+    document.querySelectorAll('[data-preview]').forEach(function(b){ b.remove(); });
+  }
+})();
+
+/* ═══════════ CONTRACT COPY ═══════════ */
+(function(){
+  var CFG = window.GENZE || {};
+  var btn=document.getElementById('caCopy'),txt=document.getElementById('caText');
+  if (CFG.mint && txt){
+    txt.textContent = CFG.mint;
+    var top = document.querySelector('.ca-top i');
+    if (top) top.textContent = 'Solana SPL';
+  }
+  if(!btn) return;
+  btn.addEventListener('click',function(){
+    var v=txt.textContent.trim();
+    // nothing to copy until the token is real — send people to the claim instead
+    if(v.indexOf('Live at launch')===0){
+      btn.textContent='Soon';
+      setTimeout(function(){btn.textContent='Copy'},1400);
+      document.getElementById('name').scrollIntoView({behavior:'smooth'});
+      return;
+    }
+    navigator.clipboard.writeText(v).then(function(){
+      btn.textContent='Copied'; btn.classList.add('done');
+      setTimeout(function(){btn.textContent='Copy';btn.classList.remove('done')},1600);
+    });
+  });
+})();
+
+/* ═══════════ ALLOCATION RING ═══════════ */
+(function(){
+  var A=[
+    ['Community & creators',32,'#7CFF2A','Paid for posting, writing, streaming'],
+    ['Treasury',16,'#004EEA','Multisig, 3-year lock, disclosed quarterly'],
+    ['Early contributors',15,'#4EC900','Points earned before launch'],
+    ['Team',13,'#EAB600','12-month cliff, 4-year vest'],
+    ['Liquidity',10,'#349C00','Locked at launch, LP burned'],
+    ['Ecosystem grants',6,'#1F8A7A','Open-source Solana work'],
+    ['Developer fund',4,'#8A6FC4','Builders shipping to ZStore'],
+    ['Launch',4,'#9FB183','Public at launch']
+  ];
+  var svg=document.getElementById('ring'),leg=document.getElementById('alloc');
+  if(!svg||!leg) return;
+
+  var R=15.9155,C=2*Math.PI*R,off=0,out='';
+  out+='<circle cx="21" cy="21" r="'+R+'" fill="none" stroke="#161F0B" stroke-width="6.5"/>';
+  A.forEach(function(a){
+    var len=a[1]/100*C;
+    out+='<circle cx="21" cy="21" r="'+R+'" fill="none" stroke="'+a[2]+'" stroke-width="6.5"'
+       + ' stroke-dasharray="0 '+C+'" stroke-dashoffset="'+(-off)+'" data-len="'+len+'" class="arc"/>';
+    off+=len;
+  });
+  svg.innerHTML=out;
+
+  leg.innerHTML=A.map(function(a){
+    return '<div class="al"><span class="sw" style="background:'+a[2]+'"></span>'
+      +'<span class="t"><b>'+a[0]+'</b><span>'+a[3]+'</span></span>'
+      +'<span class="p" style="color:'+a[2]+'">'+a[1]+'%</span></div>';
+  }).join('');
+
+  var drawn=false;
+  new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting||drawn) return; drawn=true;
+      svg.querySelectorAll('.arc').forEach(function(arc,i){
+        arc.style.transition='stroke-dasharray .85s cubic-bezier(.22,1,.36,1) '+(i*.08)+'s';
+        requestAnimationFrame(function(){
+          arc.setAttribute('stroke-dasharray',arc.getAttribute('data-len')+' '+C);
+        });
+      });
+    });
+  },{threshold:.35}).observe(svg);
+})();
+
+/* ═══════════ NAME CHECK + RESERVATION ═══════════ */
+(function(){
+  var CFG = window.GENZE || {};
+  var LOCAL_BLOCK=['admin','genze','genzehub','zmain','root','support','official','team','help'];
+  var input=document.getElementById('zin'), ind=document.getElementById('zind'),
+      msg=document.getElementById('zmsg'), go=document.getElementById('zgo');
+  if(!input) return;
+  var TICK='<svg viewBox="0 0 24 24" stroke="#7CFF2A"><path d="M4 12.5l5 5L20 6.5"/></svg>';
+  var X='<svg viewBox="0 0 24 24" stroke="#FF5C4D"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  var t, lastFree=null, lastName='';
+
+  function say(cls,text){ msg.className='cmsg '+(cls||''); msg.textContent=text; }
+
+  function check(v){
+    if (CFG.formEndpoint){
+      return fetch(CFG.formEndpoint+'?action=check&name='+encodeURIComponent(v))
+        .then(function(r){ return r.json(); })
+        .catch(function(){ return {free:null}; });
+    }
+    return Promise.resolve({ free: LOCAL_BLOCK.indexOf(v)===-1, local:true });
+  }
+
+  input.addEventListener('input',function(){
+    input.value=input.value.toLowerCase().replace(/[^a-z0-9_]/g,'').slice(0,20);
+    var v=input.value; clearTimeout(t); lastFree=null; input.disabled=false;
+    if(v.length<3){
+      ind.innerHTML=''; say('','3\u201320 characters. Letters, numbers, underscore.');
+      go.textContent='Reserve it free'; return;
+    }
+    say('','Checking\u2026'); ind.innerHTML='';
+    t=setTimeout(function(){
+      check(v).then(function(res){
+        if(res.free===null){ ind.innerHTML=''; say('','Could not reach the register. Try again in a moment.'); return; }
+        lastFree=res.free; lastName=v;
+        ind.innerHTML=res.free?TICK:X;
+        say(res.free?'ok':'no',
+          v+'.z is '+(res.free
+            ? ('available'+(res.local?' \u2014 reservations open when the register is connected':' \u2014 reserve it free'))
+            : (res.reason||'already taken')));
+        go.textContent=res.free?('Reserve '+v+'.z'):'Try another name';
+      });
+    },340);
+  });
+
+  go.addEventListener('click',function(e){
+    e.preventDefault();
+    if(!lastFree){ input.focus(); return; }
+    if(!CFG.formEndpoint){ say('','Reservations open shortly \u2014 the register is not connected yet.'); return; }
+    var email=prompt('Where should we send confirmation for '+lastName+'.z?');
+    if(!email) return;
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){ say('no','That email does not look right.'); return; }
+    go.textContent='Reserving\u2026';
+    fetch(CFG.formEndpoint,{
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({type:'names',name:lastName,email:email,source:'hub'})
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      if(res.ok){
+        ind.innerHTML=TICK;
+        say('ok',lastName+'.z is reserved for you. Confirmation sent to '+email+'.');
+        go.textContent='Reserved'; input.disabled=true;
+      } else { say('no',res.error||'Could not reserve that name.'); go.textContent='Try again'; }
+    })
+    .catch(function(){ say('no','Could not reach the register. Try again in a moment.'); go.textContent='Try again'; });
+  });
+
+  input.addEventListener('keydown',function(e){ if(e.key==='Enter') go.click(); });
+})();
+
+/* ═══════════ TWEET TO BUY ═══════════ */
+(function(){
+  var HANDLE = '@genzebot';          // change when the bot account exists
+  var TICKER = '$GENZE';
+  var amt = 10;
+
+  var amtEl   = document.getElementById('twAmt'),
+      custom  = document.getElementById('twCustom'),
+      go      = document.getElementById('twGo'),
+      buttons = document.querySelectorAll('.amt');
+  if (!go) return;
+
+  function render(){
+    if (amtEl) amtEl.textContent = amt;
+  }
+
+  buttons.forEach(function(b){
+    b.addEventListener('click', function(){
+      buttons.forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      if (b.dataset.a === 'custom'){
+        custom.hidden = false;
+        custom.focus();
+        var v = parseInt(custom.value, 10);
+        amt = (v > 0) ? v : 10;
+      } else {
+        custom.hidden = true;
+        amt = parseInt(b.dataset.a, 10);
+      }
+      render();
+    });
+  });
+
+  custom.addEventListener('input', function(){
+    var v = parseInt(custom.value, 10);
+    amt = (v > 0 && v <= 10000) ? v : 10;
+    render();
+  });
+
+  go.addEventListener('click', function(){
+    var text = HANDLE + ' buy $' + amt + ' ' + TICKER;
+    // X reads `text`; on mobile the installed app intercepts this URL
+    var url = 'https://x.com/intent/post?text=' + encodeURIComponent(text);
+    window.open(url, '_blank', 'noopener');
+  });
+
+  render();
+})();
+
+/* ═══════════ ZDEX ═══════════ */
+(function(){
+  var COLS = ['#7CFF2A','#004EEA','#EAB600','#349C00','#FF5C4D','#8A6FC4','#1F8A7A','#4EC900'];
+
+  function seed(sym, name, by, price, mc, liq, vol, h24, isNew, zmain){
+    return { sym:sym, name:name, by:by, price:price, mc:mc, liq:liq, vol:vol,
+             m5:(Math.random()*6-2.4), h1:(Math.random()*14-5), h24:h24,
+             isNew:!!isNew, zmain:!!zmain, c:COLS[sym.length % COLS.length],
+             hist:[] };
+  }
+
+  var ROWS = [
+    seed('GENZE','Genze','genzehub',0.0412,12360000,840000,2140000, 18.4, false, true),
+    seed('MAJLIS','Pixel Majlis','omar',0.00184,1840000,164000,412000, 68.2, false, true),
+    seed('BONK','Bonk','',0.0000241,1810000000,24100000,88400000, -3.1, false, false),
+    seed('NAWRAS','Nawras','nadia',0.0093,930000,88000,196000, 11.4, false, true),
+    seed('WIF','dogwifhat','',1.84,1840000000,31200000,142000000, 4.8, false, false),
+    seed('SANDST','Sandstorm','tariq',0.00021,210000,41000,84000, 142.6, true, true),
+    seed('JUP','Jupiter','',0.412,1240000000,18400000,64200000, -1.8, false, false),
+    seed('SOUQ','Souq','layla',0.00098,98000,19000,31000, -12.4, true, true),
+    seed('WARSHA','Warsha','yusuf','0.00234',234000,38000,72000, 31.2, false, true),
+    seed('QAFIYA','Qafiya','sara',0.0052,520000,61000,118000, 94.1, false, true),
+    seed('PYTH','Pyth Network','',0.184,3120000000,9400000,21400000, 2.4, false, false),
+    seed('DUNE','Dune Runner','tariq',0.0112,1120000,142000,284000, -7.2, false, true),
+    seed('RAY','Raydium','',2.14,624000000,42100000,38400000, 6.1, false, false),
+    seed('STATIC','Static','yusuf',0.000064,64000,12000,19000, 8.4, true, true),
+  ];
+
+  ROWS.forEach(function(r){
+    r.price = parseFloat(r.price);
+    var p = r.price;
+    for (var i = 0; i < 22; i++){
+      p = p * (1 + (Math.random() - 0.48) * 0.06);
+      r.hist.push(p);
+    }
+  });
+
+  var tab = 'trend', q = '', sortKey = 'h24', sortDir = -1;
+  var body = document.getElementById('zdbody');
+  var promo = document.getElementById('zdpromo');
+  if (!body) return;
+
+  function fmtPrice(p){
+    if (p >= 1)      return '$' + p.toFixed(3);
+    if (p >= 0.001)  return '$' + p.toFixed(5);
+    return '$' + p.toFixed(9).replace(/0+$/,'');
+  }
+  function big(n){
+    if (n >= 1e9) return '$' + (n/1e9).toFixed(2) + 'B';
+    if (n >= 1e6) return '$' + (n/1e6).toFixed(2) + 'M';
+    if (n >= 1e3) return '$' + (n/1e3).toFixed(1) + 'K';
+    return '$' + n.toFixed(0);
+  }
+  function pct(v){
+    var cls = v >= 0 ? 'up' : 'dn';
+    return '<span class="' + cls + '">' + (v >= 0 ? '+' : '') + v.toFixed(1) + '%</span>';
+  }
+
+  function spark(hist, upward){
+    var w = 62, h = 22, lo = Math.min.apply(null, hist), hi = Math.max.apply(null, hist);
+    var rng = (hi - lo) || 1;
+    var pts = hist.map(function(v, i){
+      return (i / (hist.length - 1) * w).toFixed(1) + ',' +
+             (h - 2 - ((v - lo) / rng) * (h - 4)).toFixed(1);
+    }).join(' ');
+    return '<svg class="spark" viewBox="0 0 ' + w + ' ' + h + '" fill="none" preserveAspectRatio="none">'
+      + '<polyline points="' + pts + '" stroke="' + (upward ? '#7CFF2A' : '#FF5C4D')
+      + '" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+  }
+
+  function view(){
+    var list = ROWS.slice();
+    if (tab === 'new')   list = list.filter(function(r){ return r.isNew; });
+    if (tab === 'zmain') list = list.filter(function(r){ return r.zmain; });
+    if (tab === 'gain')  list.sort(function(a,b){ return b.h24 - a.h24; });
+    if (tab === 'vol')   list.sort(function(a,b){ return b.vol - a.vol; });
+    if (tab === 'trend') list.sort(function(a,b){ return (b.vol/b.mc) - (a.vol/a.mc); });
+
+    if (q){
+      var t = q.toLowerCase();
+      list = list.filter(function(r){
+        return r.sym.toLowerCase().indexOf(t) > -1 ||
+               r.name.toLowerCase().indexOf(t) > -1 ||
+               (r.by && r.by.indexOf(t) > -1);
+      });
+    }
+    if (tab === 'trend' || tab === 'new' || tab === 'zmain'){
+      list.sort(function(a,b){
+        var A = a[sortKey], B = b[sortKey];
+        if (typeof A === 'string') return sortDir * A.localeCompare(B);
+        return sortDir * (A - B);
+      });
+    }
+    return list;
+  }
+
+  function render(){
+    var list = view();
+    document.getElementById('zdcount').textContent = list.length;
+
+    if (!list.length){
+      body.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:38px;'
+        + 'font-family:var(--body);color:var(--mute)">Nothing matches that.</td></tr>';
+      return;
+    }
+
+    body.innerHTML = list.map(function(r, i){
+      return '<tr onclick="ztRow(' + i + ')">'
+        + '<td class="zd-rank">' + (i + 1) + '</td>'
+        + '<td><span class="zd-pair">'
+          + '<span class="zd-ico" style="background:' + r.c + '">' + r.sym.slice(0,2) + '</span>'
+          + '<span class="zd-pn"><b>' + r.sym
+            + (r.isNew ? '<span class="zd-badge new">NEW</span>' : '')
+            + (r.zmain ? '<span class="zd-badge z">.z</span>' : '')
+            + '</b>'
+            + '<span>' + (r.by ? r.by + '.z' : r.name) + '</span></span>'
+          + '</span></td>'
+        + '<td>' + fmtPrice(r.price) + '</td>'
+        + '<td>' + pct(r.m5) + '</td>'
+        + '<td>' + pct(r.h1) + '</td>'
+        + '<td>' + pct(r.h24) + '</td>'
+        + '<td>' + big(r.vol) + '</td>'
+        + '<td>' + big(r.liq) + '</td>'
+        + '<td>' + big(r.mc) + '</td>'
+        + '<td>' + spark(r.hist, r.h24 >= 0) + '</td>'
+        + '</tr>';
+    }).join('');
+  }
+
+  function renderPromo(){
+    var picks = ROWS.filter(function(r){ return r.zmain; }).slice(0, 4);
+    promo.innerHTML = picks.map(function(r){
+      return '<button class="zd-pcard" onclick="ztSym(\'' + r.sym + '\')">'
+        + '<span class="ad">AD</span>'
+        + '<span class="tk"><span class="dot" style="background:' + r.c + '">'
+          + r.sym.slice(0,2) + '</span><b>' + r.sym + '</b></span>'
+        + '<span class="pr">' + fmtPrice(r.price)
+          + '<span class="ch ' + (r.h24 >= 0 ? 'up' : 'dn') + '">'
+          + (r.h24 >= 0 ? '+' : '') + r.h24.toFixed(1) + '%</span></span>'
+        + '</button>';
+    }).join('');
+  }
+
+  document.querySelectorAll('.zd-chip').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.zd-chip').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      tab = b.dataset.z;
+      render();
+    });
+  });
+
+  document.querySelectorAll('.zd-tbl th[data-s]').forEach(function(th){
+    th.addEventListener('click', function(){
+      var k = th.dataset.s;
+      if (k === 'rank') return;
+      if (sortKey === k) sortDir = -sortDir; else { sortKey = k; sortDir = -1; }
+      document.querySelectorAll('.zd-tbl th').forEach(function(x){ x.classList.remove('sorted'); });
+      th.classList.add('sorted');
+      render();
+    });
+  });
+
+  var find = document.getElementById('zdq');
+  if (find) find.addEventListener('input', function(){ q = find.value; render(); });
+
+  /* the detail view needs to resolve what was clicked */
+  window.ztRow = function(i){ var l = view(); if (l[i]) window.ztOpen(l[i]); };
+  window.ztSym = function(sym){
+    for (var i = 0; i < ROWS.length; i++) if (ROWS[i].sym === sym) return window.ztOpen(ROWS[i]);
+  };
+
+  render(); renderPromo();
+
+  /* ---------- LIVE MARKET DATA ----------
+     Real Solana pairs from DexScreener. If the request fails, the sample rows
+     stay on screen and the badge says plainly that they are samples. */
+  var CFG = window.GENZE || {};
+  var liveBadge = document.getElementById('zdlive');
+  function setBadge(state, text){
+    if (!liveBadge) return;
+    liveBadge.className = 'zd-live ' + state;
+    liveBadge.textContent = text;
+  }
+
+  function absorb(pairs){
+    var byMint = {};
+    pairs.forEach(function(p){
+      var mint = p.baseToken && p.baseToken.address;
+      if (!mint) return;
+      var prev = byMint[mint];
+      var liq = (p.liquidity && p.liquidity.usd) || 0;
+      if (!prev || liq > ((prev.liquidity && prev.liquidity.usd) || 0)) byMint[mint] = p;
+    });
+    var out = [];
+    (CFG.watchlist || []).forEach(function(mint){
+      var p = byMint[mint];
+      if (!p) return;
+      var price = parseFloat(p.priceUsd) || 0;
+      var isGenze = mint === CFG.mint;
+      var chg = p.priceChange || {};
+      var r = {
+        sym:(p.baseToken.symbol || '?').toUpperCase().slice(0,7),
+        name:p.baseToken.name || p.baseToken.symbol || '',
+        by:isGenze ? 'genzehub' : '',
+        price:price,
+        mc:p.marketCap || p.fdv || 0,
+        liq:(p.liquidity && p.liquidity.usd) || 0,
+        vol:(p.volume && p.volume.h24) || 0,
+        m5:chg.m5 || 0, h1:chg.h1 || 0, h24:chg.h24 || 0,
+        isNew:(Date.now() - (p.pairCreatedAt || 0)) < 7*864e5,
+        zmain:isGenze,
+        c:COLS[(p.baseToken.symbol || 'X').length % COLS.length],
+        hist:[], url:p.url
+      };
+      /* rebuild a shape from the real 24h/6h/1h/5m moves we actually have */
+      var back = price, pts = [price];
+      [chg.m5||0, chg.h1||0, chg.h6||0, chg.h24||0].forEach(function(c){
+        back = back / (1 + c/100);
+        pts.unshift(back);
+      });
+      for (var i = 0; i < 22; i++){
+        var t = i/21*(pts.length-1), lo = Math.floor(t), hi = Math.ceil(t);
+        r.hist.push(pts[lo] + (pts[hi]-pts[lo])*(t-lo));
+      }
+      out.push(r);
+    });
+    return out;
+  }
+
+  function loadLive(){
+    if (!CFG.dexApi || !CFG.watchlist || !CFG.watchlist.length) return;
+    fetch(CFG.dexApi + '/tokens/' + CFG.watchlist.join(','))
+      .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function(d){
+        var rows = absorb(d.pairs || []);
+        if (!rows.length) throw new Error('no pairs');
+        ROWS.length = 0;
+        rows.forEach(function(r){ ROWS.push(r); });
+        render(); renderPromo();
+        setBadge('on','Live · ' + new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}));
+      })
+      .catch(function(){ setBadge('off','Sample data — live feed unavailable'); });
+  }
+  loadLive();
+  setInterval(loadLive, 45000);
+})();
+
+/* ═══════════ ZDEX TOKEN VIEW ═══════════ */
+(function(){
+  var scrim = document.getElementById('ztscrim');
+  var sheet = document.getElementById('ztsheet');
+  if (!scrim) return;
+
+  var cur = null, range = '24H';
+
+  function fmtPrice(p){
+    if (p >= 1)     return '$' + p.toFixed(4);
+    if (p >= 0.001) return '$' + p.toFixed(6);
+    return '$' + p.toFixed(10).replace(/0+$/,'');
+  }
+  function big(n){
+    if (n >= 1e9) return '$' + (n/1e9).toFixed(2) + 'B';
+    if (n >= 1e6) return '$' + (n/1e6).toFixed(2) + 'M';
+    if (n >= 1e3) return '$' + (n/1e3).toFixed(1) + 'K';
+    return '$' + n.toFixed(0);
+  }
+
+  /* deterministic series so the chart is stable between renders */
+  function series(seedStr, n, drift){
+    var h = 0;
+    for (var i = 0; i < seedStr.length; i++) h = (h * 31 + seedStr.charCodeAt(i)) % 100000;
+    var out = [], v = 1;
+    for (var j = 0; j < n; j++){
+      h = (h * 1103515245 + 12345) % 2147483648;
+      var r = (h / 2147483648) - 0.5;
+      v = v * (1 + r * 0.09 + drift / n);
+      out.push(v);
+    }
+    return out;
+  }
+
+  function chart(data, up){
+    var W = 600, H = 210, pad = 4;
+    var lo = Math.min.apply(null, data), hi = Math.max.apply(null, data);
+    var rng = (hi - lo) || 1;
+    var col = up ? '#7CFF2A' : '#FF5C4D';
+
+    var pts = data.map(function(v, i){
+      return [(i / (data.length - 1) * W), H - pad - ((v - lo) / rng) * (H - pad * 2)];
+    });
+    var line = pts.map(function(p, i){
+      return (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1);
+    }).join(' ');
+    var area = line + ' L' + W + ' ' + H + ' L0 ' + H + ' Z';
+
+    var grid = '';
+    for (var g = 1; g < 4; g++){
+      var y = (H / 4) * g;
+      grid += '<line x1="0" y1="' + y + '" x2="' + W + '" y2="' + y
+           + '" stroke="#2C3D14" stroke-width="1" stroke-dasharray="3 5"/>';
+    }
+
+    var last = pts[pts.length - 1];
+    return '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none">'
+      + '<defs><linearGradient id="zg" x1="0" y1="0" x2="0" y2="1">'
+      + '<stop offset="0" stop-color="' + col + '" stop-opacity=".28"/>'
+      + '<stop offset="1" stop-color="' + col + '" stop-opacity="0"/></linearGradient></defs>'
+      + grid
+      + '<path d="' + area + '" fill="url(#zg)"/>'
+      + '<path d="' + line + '" stroke="' + col + '" stroke-width="2.4" fill="none" '
+      + 'stroke-linejoin="round" stroke-linecap="round"/>'
+      + '<circle cx="' + last[0].toFixed(1) + '" cy="' + last[1].toFixed(1)
+      + '" r="4" fill="' + col + '"/>'
+      + '<circle cx="' + last[0].toFixed(1) + '" cy="' + last[1].toFixed(1)
+      + '" r="8" fill="' + col + '" opacity=".22"/>'
+      + '</svg>';
+  }
+
+  var LENS = { '5M':30, '1H':48, '6H':60, '24H':72, '7D':84, 'ALL':96 };
+
+  function tape(t){
+    var names = ['layla','omar','yusuf','nadia','sara','tariq','amir','zain','noor','rami','kian','dana'];
+    var out = '';
+    for (var i = 0; i < 9; i++){
+      var buy = Math.random() < 0.6;
+      var who = names[(Math.random() * names.length) | 0];
+      var sol = (Math.random() * 4 + 0.02).toFixed(2);
+      var mins = i === 0 ? 'now' : (i * 3 + (Math.random() * 3 | 0)) + 'm';
+      out += '<div class="zt-trade">'
+        + '<span class="s ' + (buy ? 'b' : 's') + '">' + (buy ? 'BUY' : 'SELL') + '</span>'
+        + '<span class="w">' + who + '.z</span>'
+        + '<span class="a">' + sol + ' SOL</span>'
+        + '<span style="color:var(--dim);flex-shrink:0">' + mins + '</span>'
+        + '</div>';
+    }
+    return out;
+  }
+
+  function check(state, title, detail){
+    var mark = state === 'ok'
+      ? '<path d="M4 12.5l5 5L20 6.5"/>'
+      : (state === 'no' ? '<path d="M6 6l12 12M18 6L6 18"/>'
+                        : '<path d="M12 8v5M12 17h.01"/>');
+    return '<div class="zt-chk ' + state + '"><span class="m">'
+      + '<svg viewBox="0 0 24 24">' + mark + '</svg></span>'
+      + '<span><b>' + title + '</b><em>' + detail + '</em></span></div>';
+  }
+
+  function draw(){
+    var t = cur;
+    var up = t.h24 >= 0;
+    var data = series(t.sym + range, LENS[range] || 72, t.h24 / 40);
+
+    var top5 = t.zmain ? 18 : 34, next15 = t.zmain ? 22 : 26, rest = 100 - top5 - next15;
+
+    sheet.innerHTML =
+      '<div class="zt-top">'
+        + '<button class="zt-x" onclick="ztClose()" aria-label="Close">'
+        + '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>'
+        + '<span class="zt-id">'
+          + '<span class="zt-ico" style="background:' + t.c + '">' + t.sym.slice(0,2) + '</span>'
+          + '<span class="zt-nm"><b>$' + t.sym + '</b>'
+          + '<span>' + (t.by ? t.by + '.z' : t.name) + '</span></span>'
+        + '</span>'
+        + '<span class="zt-px"><b>' + fmtPrice(t.price) + '</b>'
+        + '<span class="' + (up ? 'up' : 'dn') + '">'
+        + (up ? '+' : '') + t.h24.toFixed(1) + '%</span></span>'
+      + '</div>'
+
+      + '<div class="zt-body"><div class="zt-grid">'
+
+      /* ── left: chart ── */
+      + '<div><div class="zt-chart">'
+        + '<div class="zt-ranges">'
+        + ['5M','1H','6H','24H','7D','ALL'].map(function(r){
+            return '<button class="zt-r' + (r === range ? ' on' : '') + '" data-r="' + r + '">'
+                 + r + '</button>';
+          }).join('')
+        + '</div>'
+        + '<div class="zt-canvas">' + chart(data, up) + '</div>'
+        + '<div class="zt-stats">'
+          + '<div class="zt-st"><span>Market cap</span><b>' + big(t.mc) + '</b></div>'
+          + '<div class="zt-st"><span>Liquidity</span><b>' + big(t.liq) + '</b></div>'
+          + '<div class="zt-st"><span>Volume 24h</span><b>' + big(t.vol) + '</b></div>'
+          + '<div class="zt-st"><span>Holders</span><b>'
+            + (t.zmain ? (300 + (t.sym.length * 187) % 4000) : '12.4K') + '</b></div>'
+        + '</div></div>'
+
+        + '<div class="zt-card" style="margin-top:16px">'
+        + '<h5>Recent trades</h5><div class="zt-tape">' + tape(t) + '</div></div>'
+      + '</div>'
+
+      /* ── right: the parts DexScreener cannot show ── */
+      + '<div class="zt-side">'
+
+        + '<div class="zt-card">'
+          + '<div class="zt-buy">'
+          + '<button class="btn btn-buy" style="flex:1" onclick="zlOpen()">Buy</button>'
+          + '<button class="btn btn-out" style="flex:1" onclick="zlOpen()">Sell</button>'
+          + '</div>'
+          + '<p style="margin-top:11px;font-size:11px;color:var(--dim);text-align:center;'
+          + 'line-height:1.5">Routed through Jupiter for best price</p>'
+        + '</div>'
+
+        + (t.zmain
+          ? '<div class="zt-card zt-who"><h5>Who launched this</h5>'
+            + '<div class="zt-whorow">'
+              + '<span class="zt-av">' + (t.by ? t.by[0].toUpperCase() : 'Z') + '</span>'
+              + '<span class="zt-whoinfo"><b>' + t.by + '.z</b>'
+              + '<span>Verified name · on GenzeHub since 2026</span></span>'
+            + '</div>'
+            + '<div class="zt-track">'
+              + '<div class="zt-trow"><span>Coins launched before</span><b>'
+                + (t.sym.length % 3) + '</b></div>'
+              + '<div class="zt-trow"><span>Still trading</span><b class="up">'
+                + (t.sym.length % 3) + ' of ' + (t.sym.length % 3) + '</b></div>'
+              + '<div class="zt-trow"><span>Creator allocation</span><b>0%</b></div>'
+              + '<div class="zt-trow"><span>Posts on GenzeHub</span><b>'
+                + (40 + t.sym.length * 13) + '</b></div>'
+            + '</div>'
+            + '<button class="btn btn-out" style="width:100%;margin-top:14px;padding:10px;'
+            + 'font-size:11.5px">See their profile</button>'
+            + '</div>'
+          : '<div class="zt-card"><h5>Who launched this</h5>'
+            + '<div class="zt-whorow">'
+              + '<span class="zt-av" style="background:var(--line);color:var(--dim)">?</span>'
+              + '<span class="zt-whoinfo"><b style="color:var(--mute)">Anonymous wallet</b>'
+              + '<span>No name attached. History unknown.</span></span>'
+            + '</div>'
+            + '<p style="margin-top:13px;font-size:11.5px;color:var(--dim);line-height:1.5">'
+            + 'Launched outside GenzeHub, so there is no identity to check. '
+            + 'That is normal everywhere else \u2014 it is what ZDex exists to fix.</p>'
+            + '</div>')
+
+        + '<div class="zt-card"><h5>Safety checks</h5><div class="zt-checks">'
+          + check('ok', 'Mint authority revoked', 'No more supply can be created')
+          + check('ok', 'Freeze authority revoked', 'Nobody can freeze your wallet')
+          + check(t.liq > 100000 ? 'ok' : 'warn',
+                  t.liq > 100000 ? 'Liquidity locked' : 'Thin liquidity',
+                  t.liq > 100000 ? 'LP tokens burned at launch'
+                                 : big(t.liq) + ' \u2014 expect heavy slippage')
+          + check(t.zmain ? 'ok' : 'warn',
+                  t.zmain ? 'Creator identified' : 'Creator anonymous',
+                  t.zmain ? 'Permanent .z name attached' : 'No name, no history')
+          + check(top5 < 25 ? 'ok' : 'warn', 'Top 5 hold ' + top5 + '%',
+                  top5 < 25 ? 'Reasonably distributed' : 'Concentrated \u2014 they can move the price')
+        + '</div></div>'
+
+        + '<div class="zt-card"><h5>Holder distribution</h5>'
+          + '<div class="zt-hold">'
+            + '<i style="width:' + top5 + '%;background:#FF5C4D"></i>'
+            + '<i style="width:' + next15 + '%;background:#EAB600"></i>'
+            + '<i style="width:' + rest + '%;background:#7CFF2A"></i>'
+          + '</div>'
+          + '<div class="zt-hkey">'
+            + '<span><i style="background:#FF5C4D"></i>Top 5 \u00b7 ' + top5 + '%</span>'
+            + '<span><i style="background:#EAB600"></i>Next 15 \u00b7 ' + next15 + '%</span>'
+            + '<span><i style="background:#7CFF2A"></i>Everyone else \u00b7 ' + rest + '%</span>'
+          + '</div></div>'
+
+      + '</div></div></div>';
+
+    sheet.querySelectorAll('.zt-r').forEach(function(b){
+      b.addEventListener('click', function(){ range = b.dataset.r; draw(); });
+    });
+  }
+
+  window.ztOpen = function(t){
+    cur = t; range = '24H';
+    scrim.classList.add('on');
+    document.body.style.overflow = 'hidden';
+    draw();
+  };
+  window.ztClose = function(){
+    scrim.classList.remove('on');
+    document.body.style.overflow = '';
+  };
+  scrim.addEventListener('click', function(e){ if (e.target === scrim) window.ztClose(); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && scrim.classList.contains('on')) window.ztClose();
+  });
+})();
+
+/* ═══════════ Z LAUNCH ═══════════ */
+(function(){
+  var FEE_USD = 8;
+
+  var COINS = [
+    { t:'SANDSTORM', n:'Sandstorm',   by:'tariq',  ago:'4m',  mc:18400, chg:+142, prog:31,
+      c:'#EAB600', d:'Desert runner community coin. One button, endless dunes.' },
+    { t:'MAJLIS',    n:'Pixel Majlis',by:'omar',   ago:'19m', mc:41200, chg:+68,  prog:69,
+      c:'#7CFF2A', d:'Governance for the studio. Holders vote on what we build next.' },
+    { t:'SOUQ',      n:'Souq',        by:'layla',  ago:'1h',  mc:9800,  chg:-12,  prog:16,
+      c:'#004EEA', d:'Corner-shop directory across the Emirates. Shops stake to be listed.' },
+    { t:'WARSHA',    n:'Warsha',      by:'yusuf',  ago:'2h',  mc:23400, chg:+31,  prog:39,
+      c:'#349C00', d:'Repair guides in Arabic. Earn by writing them, spend on parts.' },
+    { t:'NAWRAS',    n:'Nawras',      by:'nadia',  ago:'5h',  mc:186000,chg:+11,  prog:100,
+      c:'#FF5C4D', d:'A synth built for maqam scales. Preset marketplace currency.' },
+    { t:'QAFIYA',    n:'Qafiya',      by:'sara',   ago:'8h',  mc:52000, chg:+94,  prog:87,
+      c:'#8A6FC4', d:'Rhyme battles against the clock, Arabic and English.' },
+    { t:'DUNE',      n:'Dune Runner', by:'tariq',  ago:'1d',  mc:112000,chg:-7,   prog:100,
+      c:'#1F8A7A', d:'The original. Still the most played game in the hub.' },
+    { t:'STATIC',    n:'Static',      by:'yusuf',  ago:'2d',  mc:6400,  chg:+8,   prog:11,
+      c:'#9FB183', d:'Co-op horror for three. Nobody has the full map.' },
+  ];
+
+  var filter = 'hot', q = '';
+  var grid = document.getElementById('zlgrid');
+  if (!grid) return;
+
+  function money(n){
+    if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
+    if (n >= 1000)    return '$' + (n/1000).toFixed(1) + 'K';
+    return '$' + n;
+  }
+
+  function view(){
+    var list = COINS.slice();
+    if (filter === 'new')  list.sort(function(a,b){ return a.ago.length - b.ago.length; });
+    if (filter === 'hot')  list.sort(function(a,b){ return b.chg - a.chg; });
+    if (filter === 'soon') list = list.filter(function(c){ return c.prog >= 60 && c.prog < 100; });
+    if (filter === 'done') list = list.filter(function(c){ return c.prog >= 100; });
+    if (q) {
+      var t = q.toLowerCase();
+      list = list.filter(function(c){
+        return c.t.toLowerCase().indexOf(t) > -1 ||
+               c.n.toLowerCase().indexOf(t) > -1 ||
+               c.by.indexOf(t) > -1;
+      });
+    }
+    return list;
+  }
+
+  function render(){
+    var list = view();
+    if (!list.length){
+      grid.innerHTML = '<div class="zl-card" style="grid-column:1/-1;text-align:center;padding:38px">'
+        + '<b style="font-family:var(--heavy);font-size:15px">Nothing here</b>'
+        + '<p style="margin-top:8px;font-size:13.5px;color:var(--mute)">Be the first to launch one.</p>'
+        + '</div>';
+      return;
+    }
+    grid.innerHTML = list.map(function(c){
+      var done = c.prog >= 100;
+      return '<button class="zl-card" onclick="zlOpen()">'
+        + '<span class="zl-head">'
+          + '<span class="zl-pic" style="background:' + c.c + '">' + c.t.slice(0,2) + '</span>'
+          + '<span class="zl-name">'
+            + '<b>$' + c.t + '</b>'
+            + '<span class="by">' + c.by + '.z</span>'
+            + '<span class="ago">' + c.ago + ' ago</span>'
+          + '</span>'
+        + '</span>'
+        + '<span class="zl-blurb">' + c.d + '</span>'
+        + '<span class="zl-meta">'
+          + '<span class="zl-mc">' + money(c.mc) + '</span>'
+          + '<span class="zl-chg ' + (c.chg >= 0 ? 'up' : 'dn') + '">'
+            + (c.chg >= 0 ? '+' : '') + c.chg + '%</span>'
+        + '</span>'
+        + '<span class="zl-prog' + (done ? ' grad' : '') + '">'
+          + '<i style="width:' + Math.min(100, c.prog) + '%"></i></span>'
+        + '<span class="zl-foot">'
+          + '<span>' + (done ? 'Graduated' : c.prog + '% to graduation') + '</span>'
+          + '<span class="' + (done ? 'g' : '') + '">' + (done ? 'On Raydium' : 'Bonding curve') + '</span>'
+        + '</span>'
+        + '</button>';
+    }).join('');
+  }
+
+  document.querySelectorAll('.zl-tab').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.zl-tab').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      filter = b.dataset.f;
+      render();
+    });
+  });
+
+  var search = document.getElementById('zlq');
+  if (search) search.addEventListener('input', function(){ q = search.value; render(); });
+
+  render();
+
+  /* ── live trade feed ── */
+  var feed = document.getElementById('zlfeed');
+  var NAMES = ['layla','omar','yusuf','nadia','sara','tariq','amir','zain','noor','rami'];
+  function tick(){
+    if (!feed) return;
+    var c = COINS[(Math.random()*COINS.length)|0];
+    var buy = Math.random() < 0.62;
+    var who = NAMES[(Math.random()*NAMES.length)|0];
+    var amt = (Math.random()*3 + 0.05).toFixed(2);
+    var row = document.createElement('div');
+    row.className = 'zl-row';
+    row.innerHTML = '<span class="act ' + (buy ? 'b' : 's') + '">' + (buy ? 'BUY' : 'SELL') + '</span>'
+      + '<span class="who">' + who + '.z</span>'
+      + '<span class="what">' + (buy ? 'bought' : 'sold') + ' $' + c.t + '</span>'
+      + '<span class="amt">' + amt + ' SOL</span>';
+    feed.insertBefore(row, feed.firstChild);
+    while (feed.children.length > 6) feed.removeChild(feed.lastChild);
+  }
+  for (var i = 0; i < 5; i++) tick();
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setInterval(tick, 2600);
+  }
+
+  /* ═══ the launch flow ═══ */
+  var step = 0, connected = false;
+  var form = { name:'', ticker:'', blurb:'', img:null, twitter:'', tg:'' };
+  var scrim = document.getElementById('zlscrim');
+  var body  = document.getElementById('zlbody');
+
+  function dots(n){
+    var out = '<div class="zl-step">';
+    for (var i = 0; i < 3; i++) out += '<i class="' + (i <= n ? 'on' : '') + '"></i>';
+    return out + '</div>';
+  }
+
+  function wallet(){
+    return '<div class="zl-wallet">'
+      + '<span class="dot ' + (connected ? 'on' : 'off') + '"></span>'
+      + '<span class="t"><b>' + (connected ? 'Wallet connected' : 'No wallet connected') + '</b>'
+      + '<span>' + (connected ? '7xKX…9mPq  ·  2.41 SOL' : 'Connect to launch') + '</span></span>'
+      + (connected ? '' : '<button class="btn btn-buy" style="padding:9px 15px;font-size:11.5px" onclick="zlConnect()">Connect</button>')
+      + '</div>';
+  }
+
+  function draw(){
+    if (step === 0){
+      body.innerHTML = dots(0) + wallet()
+        + '<div class="zl-f"><label>Coin name</label>'
+        + '<input id="f-name" placeholder="Sandstorm" maxlength="32" value="' + form.name + '"></div>'
+        + '<div class="zl-f mono"><label>Ticker</label>'
+        + '<input id="f-tick" placeholder="SAND" maxlength="10" value="' + form.ticker + '">'
+        + '<span class="hint">Shown as $' + (form.ticker || 'SAND') + ' everywhere.</span></div>'
+        + '<div class="zl-f"><label>What is it?</label>'
+        + '<textarea id="f-blurb" rows="3" maxlength="300" placeholder="One or two lines. Buyers see this first.">' + form.blurb + '</textarea>'
+        + '<span class="hint">Required. A coin with no stated purpose is the clearest signal there is nothing behind it.</span></div>'
+        + '<button class="zl-go" id="f-next">Continue</button>';
+
+      document.getElementById('f-next').onclick = function(){
+        form.name  = document.getElementById('f-name').value.trim();
+        form.ticker= document.getElementById('f-tick').value.trim().toUpperCase();
+        form.blurb = document.getElementById('f-blurb').value.trim();
+        if (!form.name || !form.ticker || !form.blurb){
+          alert('Name, ticker and description are all required.');
+          return;
+        }
+        step = 1; draw();
+      };
+      document.getElementById('f-tick').addEventListener('input', function(e){
+        e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,'');
+      });
+
+    } else if (step === 1){
+      body.innerHTML = dots(1)
+        + '<div class="zl-f"><label>Logo</label>'
+        + '<div class="zl-drop' + (form.img ? ' has' : '') + '" id="f-drop">'
+        + (form.img
+            ? '<img src="' + form.img + '" alt="">'
+            : '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">'
+              + '<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3 15l5-4 4 3 3.5-3 4.5 4"/></svg>'
+              + '<b>Add a logo</b><span>Square PNG or JPG, under 2 MB</span>')
+        + '</div>'
+        + '<input type="file" id="f-file" accept="image/*" hidden></div>'
+        + '<div class="zl-f"><label>Twitter <span style="color:var(--dim);font-weight:400">— optional</span></label>'
+        + '<input id="f-tw" placeholder="https://x.com/yourhandle" value="' + form.twitter + '"></div>'
+        + '<div class="zl-f"><label>Telegram <span style="color:var(--dim);font-weight:400">— optional</span></label>'
+        + '<input id="f-tg" placeholder="https://t.me/yourgroup" value="' + form.tg + '"></div>'
+        + '<button class="zl-go" id="f-next">Continue</button>'
+        + '<button class="zl-back" id="f-back">Back</button>';
+
+      var drop = document.getElementById('f-drop'), file = document.getElementById('f-file');
+      drop.onclick = function(){ file.click(); };
+      file.onchange = function(e){
+        var f = e.target.files && e.target.files[0];
+        if (!f) return;
+        form.img = URL.createObjectURL(f);
+        draw();
+      };
+      document.getElementById('f-next').onclick = function(){
+        form.twitter = document.getElementById('f-tw').value.trim();
+        form.tg      = document.getElementById('f-tg').value.trim();
+        step = 2; draw();
+      };
+      document.getElementById('f-back').onclick = function(){ step = 0; draw(); };
+
+    } else if (step === 2){
+      body.innerHTML = dots(2)
+        + '<div class="zl-f"><label>Review</label>'
+        + '<div class="zl-fee">'
+          + '<div class="zl-fee-r"><span>Name</span><b>' + form.name + '</b></div>'
+          + '<div class="zl-fee-r"><span>Ticker</span><b>$' + form.ticker + '</b></div>'
+          + '<div class="zl-fee-r"><span>Launched by</span><b style="color:var(--slime)">hasnat.z</b></div>'
+          + '<div class="zl-fee-r"><span>Supply</span><b>1,000,000,000</b></div>'
+          + '<div class="zl-fee-r"><span>Your allocation</span><b>0%</b></div>'
+        + '</div></div>'
+
+        + '<div class="zl-f"><label>Cost</label>'
+        + '<div class="zl-fee">'
+          + '<div class="zl-fee-r"><span>Platform fee</span><b>$' + FEE_USD + '.00</b></div>'
+          + '<div class="zl-fee-r"><span>Network fee</span><b>~$0.02</b></div>'
+          + '<div class="zl-fee-r tot"><span>Total</span><b>~$' + (FEE_USD + 0.02).toFixed(2) + '</b></div>'
+          + '<p class="zl-fee-note">Paid in SOL or GENZE. Paying in GENZE is 30% cheaper, '
+          + 'and half of it is burned.</p>'
+        + '</div></div>'
+
+        + '<div class="zl-f"><div class="zl-fee" style="border-color:var(--yellow)">'
+          + '<b style="font-family:var(--heavy);font-size:12.5px;color:var(--yellow)">This is permanent</b>'
+          + '<p class="zl-fee-note" style="margin-top:8px">Once launched it cannot be edited, '
+          + 'paused or deleted, and it stays attached to <span class="mono">hasnat.z</span> forever. '
+          + 'The fee is charged whether or not anybody buys.</p>'
+        + '</div></div>'
+
+        + '<button class="zl-go" id="f-go"' + (connected ? '' : ' disabled') + '>'
+        + (connected ? 'Pay $' + FEE_USD + ' and launch' : 'Connect a wallet first') + '</button>'
+        + '<button class="zl-back" id="f-back">Back</button>';
+
+      document.getElementById('f-back').onclick = function(){ step = 1; draw(); };
+      var go = document.getElementById('f-go');
+      if (go && connected) go.onclick = function(){ step = 3; draw(); };
+
+    } else {
+      body.innerHTML = '<div class="zl-done">'
+        + '<div class="tick"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></div>'
+        + '<h4>That would be live</h4>'
+        + '<div class="tk">$' + form.ticker + '</div>'
+        + '<p>In the real thing your coin would now be trading on its bonding curve, '
+        + 'signed by <span class="mono" style="color:var(--slime)">hasnat.z</span>, '
+        + 'and visible to everyone on GenzeHub.</p>'
+        + '<p style="color:var(--yellow);font-weight:600;margin-top:14px">'
+        + 'Z Launch is not live yet. Nothing was created and no money moved.</p>'
+        + '</div>'
+        + '<button class="zl-go" style="margin-top:18px" onclick="zlClose()">Close</button>';
+    }
+  }
+
+  window.zlOpen = function(){
+    step = 0; scrim.classList.add('on');
+    document.body.style.overflow = 'hidden';
+    draw();
+  };
+  window.zlClose = function(){
+    scrim.classList.remove('on');
+    document.body.style.overflow = '';
+  };
+  window.zlConnect = function(){
+    connected = true;
+    draw();
+  };
+
+  scrim.addEventListener('click', function(e){ if (e.target === scrim) window.zlClose(); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && scrim.classList.contains('on')) window.zlClose();
+  });
+})();
+
+/* ═══════════ REVEAL ═══════════ */
+(function(){
+  var els=document.querySelectorAll('.up');
+  if(!els.length) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+    els.forEach(function(e){e.classList.add('in')}); return;
+  }
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var sibs=Array.prototype.slice.call(e.target.parentElement.children);
+      e.target.style.transitionDelay=Math.min(sibs.indexOf(e.target),6)*0.07+'s';
+      e.target.classList.add('in'); io.unobserve(e.target);
+    });
+  },{threshold:.15,rootMargin:'0px 0px -6% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>

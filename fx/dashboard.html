@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0A0E06">
+<meta name="color-scheme" content="dark">
+<title>Your dashboard — GENZE FX · GenzeHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee:wght@400&family=Archivo+Black&family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#004EEA; --green:#349C00; --lime:#4EC900; --yellow:#EAB600;
+  --ink:#0A0E06; --ink2:#111806; --panel:#161F0B; --line:#2C3D14;
+  --white:#F4F8EE; --mute:#9FB183; --dim:#6E8253; --slime:#7CFF2A; --red:#FF5C4D;
+  --title:'Bungee',system-ui,sans-serif; --heavy:'Archivo Black',system-ui,sans-serif;
+  --body:'Inter Tight',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  --gut:clamp(18px,4vw,48px);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--ink);color-scheme:dark;scroll-behavior:smooth}
+body{background:var(--ink);color:var(--white);font-family:var(--body);font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+img{display:block;max-width:100%}
+::selection{background:var(--slime);color:#0A0E06}
+:focus-visible{outline:3px solid var(--slime);outline-offset:3px}
+
+.ticker{position:sticky;top:0;z-index:60;overflow:hidden;background:var(--slime);color:#0A0E06;
+  border-bottom:3px solid #0A0E06}
+.ticker div{display:flex;gap:38px;width:max-content;padding:7px 0;font-family:var(--heavy);
+  font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;animation:slide 30s linear infinite}
+.ticker span{white-space:nowrap;display:flex;align-items:center;gap:38px}
+.ticker span::after{content:'●';font-size:8px;opacity:.6}
+@keyframes slide{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ticker div{animation:none}}
+
+.nav{position:sticky;top:32px;z-index:50;display:flex;align-items:center;gap:14px;
+  padding:12px var(--gut);backdrop-filter:blur(14px);background:rgba(10,14,6,.86);
+  border-bottom:1px solid var(--line)}
+.nav .logo{display:flex;align-items:center;gap:10px;font-family:var(--title);font-size:19px}
+.nav .logo img{width:36px}
+.nav .logo small{font-family:var(--heavy);font-size:9.5px;letter-spacing:.12em;color:var(--slime);
+  display:block;margin-top:-3px;text-transform:uppercase}
+.nav .right{margin-left:auto;display:flex;gap:10px;align-items:center}
+.who{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12px;color:var(--dim)}
+.avatar{width:34px;height:34px;border:3px solid #0A0E06;border-radius:10px;background:var(--slime);
+  color:#0A0E06;display:grid;place-items:center;font-family:var(--heavy);font-size:12px}
+@media(max-width:700px){.who span{display:none}}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;
+  border-radius:11px;font-family:var(--heavy);font-size:13px;letter-spacing:.02em;text-transform:uppercase;
+  transition:transform .12s,box-shadow .12s,background .14s,color .14s;border:3px solid #0A0E06;cursor:pointer}
+.btn:active{transform:translate(2px,2px)}
+.btn-buy{background:var(--slime);color:#0A0E06;box-shadow:4px 4px 0 #0A0E06}
+.btn-gold{background:var(--yellow);color:#0A0E06;box-shadow:4px 4px 0 #0A0E06}
+.btn-blue{background:var(--blue);color:#fff;box-shadow:4px 4px 0 #0A0E06}
+.btn-out{background:transparent;border-color:var(--line);color:var(--white)}
+.btn-out:hover{border-color:var(--slime);color:var(--slime)}
+.btn.wide{width:100%;padding:15px;font-size:14px}
+
+.wrap{max-width:1000px;margin:0 auto;padding:clamp(28px,5vh,48px) var(--gut) 90px}
+h1{font-family:var(--title);font-size:clamp(28px,5.4vw,44px);line-height:1;text-shadow:4px 4px 0 #0A0E06}
+h1 em{font-style:normal;color:var(--slime)}
+.lead{margin-top:14px;color:var(--mute);font-weight:500;max-width:44em}
+
+.card{border:3px solid #0A0E06;border-radius:20px;background:var(--panel);box-shadow:6px 6px 0 #0A0E06;
+  padding:clamp(20px,3vw,28px);margin-top:22px}
+.card .ch{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;
+  margin-bottom:18px}
+.card h2{font-family:var(--title);font-size:clamp(17px,2.6vw,22px);line-height:1.1}
+.card .note{font-family:var(--heavy);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dim);padding:5px 11px;border:2px solid var(--line);border-radius:99px}
+
+/* licence banner */
+.lic{border:3px solid #0A0E06;border-radius:20px;box-shadow:8px 8px 0 #0A0E06;
+  background:linear-gradient(150deg,var(--blue),#0037A8);padding:clamp(22px,3.5vw,32px);
+  margin-top:26px;position:relative;overflow:hidden}
+.lic::after{content:'';position:absolute;inset:0;opacity:.09;pointer-events:none;
+  background-image:radial-gradient(#fff 1px,transparent 1px);background-size:16px 16px}
+.lic .lbl{position:relative;font-family:var(--heavy);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(255,255,255,.66)}
+.lic .key{position:relative;margin-top:12px;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.lic .key code{font-family:var(--mono);font-size:clamp(19px,4.4vw,30px);font-weight:700;
+  letter-spacing:.04em;padding:12px 18px;border:3px solid #0A0E06;border-radius:13px;background:var(--ink);
+  color:var(--slime);word-break:break-all}
+.lic p{position:relative;margin-top:14px;font-size:14px;color:rgba(255,255,255,.85);font-weight:500}
+
+/* status grid */
+.rows{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line);
+  border:3px solid #0A0E06;border-radius:16px;overflow:hidden}
+.rw{background:var(--ink);padding:16px 18px}
+.rw span{display:block;font-family:var(--heavy);font-size:9.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--dim)}
+.rw b{display:block;margin-top:7px;font-family:var(--mono);font-size:15px;font-weight:700}
+.pill{display:inline-block;padding:3px 10px;border:2px solid #0A0E06;border-radius:99px;
+  background:var(--yellow);color:#0A0E06;font-family:var(--heavy);font-size:10px;letter-spacing:.06em;
+  text-transform:uppercase}
+.pill.live{background:var(--slime)}
+.rw b .pill{display:inline-block;color:#0A0E06;font-family:var(--heavy);font-size:10px;
+  letter-spacing:.06em;margin:0}
+
+/* form */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:620px){.grid2{grid-template-columns:1fr}}
+.f label{display:block;font-family:var(--heavy);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+.f input{width:100%;padding:13px 15px;border:3px solid var(--line);border-radius:12px;background:var(--ink);
+  color:#fff;font-family:var(--mono);font-size:15px;font-weight:600;outline:none;transition:border-color .15s}
+.f input:focus{border-color:var(--slime)}
+.hint{margin-top:16px;font-size:13.5px;line-height:1.6;color:var(--mute);font-weight:500}
+
+/* install steps */
+.dl{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:22px}
+ol.inst{list-style:none;counter-reset:s;display:flex;flex-direction:column;gap:12px}
+ol.inst li{counter-increment:s;display:flex;gap:14px;font-size:14.5px;line-height:1.6;color:var(--mute);
+  font-weight:500}
+ol.inst li::before{content:counter(s);flex-shrink:0;width:30px;height:30px;border:3px solid #0A0E06;
+  border-radius:9px;background:var(--slime);color:#0A0E06;font-family:var(--title);font-size:13px;
+  display:grid;place-items:center}
+ol.inst code{font-family:var(--mono);font-size:13px;color:var(--slime);background:var(--ink);
+  padding:2px 7px;border-radius:6px;border:1px solid var(--line)}
+ol.inst b{color:var(--white);font-family:var(--heavy);font-weight:400}
+
+.vps{border:3px dashed var(--line);border-radius:16px;padding:20px;margin-top:22px;font-size:14px;
+  line-height:1.65;color:var(--mute);font-weight:500}
+.vps b{display:block;font-family:var(--heavy);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--yellow);margin-bottom:10px}
+.warn{margin-top:26px;border:3px solid #0A0E06;border-radius:16px;background:var(--ink2);padding:18px 20px;
+  font-size:13px;line-height:1.65;color:var(--dim);font-weight:500}
+.warn b{color:var(--red);font-family:var(--heavy)}
+
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,140%);z-index:120;padding:14px 20px;
+  border:3px solid #0A0E06;border-radius:14px;background:var(--slime);color:#0A0E06;
+  box-shadow:5px 5px 0 #0A0E06;font-family:var(--heavy);font-size:12.5px;transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.toast.show{transform:translate(-50%,0)}
+footer{border-top:3px solid #0A0E06;background:var(--ink2);padding:26px var(--gut);text-align:center;
+  font-size:12.5px;color:var(--dim)}
+footer a:hover{color:var(--slime)}
+</style>
+</head>
+<body>
+
+<div class="ticker" aria-hidden="true">
+  <div>
+    <span>Licence active</span><span>Bind your account</span><span>Test on demo before you go live</span>
+    <span>Set your daily loss limit</span><span>Read the break-even print</span>
+    <span>Licence active</span><span>Bind your account</span><span>Test on demo before you go live</span>
+    <span>Set your daily loss limit</span><span>Read the break-even print</span>
+  </div>
+</div>
+
+<nav class="nav">
+  <a class="logo" href="index.html">
+    <img src="../assets/genze-81da5ad3.png" alt="">
+    <span>GENZE<small>FX · GenzeHub</small></span>
+  </a>
+  <div class="right">
+    <a class="btn btn-out" href="index.html">Back to site</a>
+    <div class="who"><span>you@email.com</span><div class="avatar">Y</div></div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <h1>Your <em>dashboard.</em></h1>
+  <p class="lead">Everything you need to get GENZE FX running on MetaTrader 5 — and to stop it costing you
+    money while you learn it.</p>
+
+  <div class="lic">
+    <div class="lbl">Licence key</div>
+    <div class="key">
+      <code id="key">GZFX-L-81E0-E51B-F6D8</code>
+      <button class="btn btn-buy" onclick="copyKey()">Copy key</button>
+    </div>
+    <p>Trader licence · one device · lifetime</p>
+  </div>
+
+  <div class="card">
+    <div class="ch"><h2>Licence status</h2><span class="note">Version 3.0</span></div>
+    <div class="rows">
+      <div class="rw"><span>Status</span><b><span class="pill live">Active</span></b></div>
+      <div class="rw"><span>Plan</span><b>Trader (1 device)</b></div>
+      <div class="rw"><span>Expires</span><b>Never</b></div>
+      <div class="rw"><span>Bound device</span><b>Not bound yet</b></div>
+    </div>
+    <a class="btn btn-gold wide" href="index.html#pricing" style="margin-top:18px">Add another device</a>
+  </div>
+
+  <div class="card">
+    <div class="ch"><h2>Bind your trading account</h2><span class="note">Rebinding is free</span></div>
+    <div class="grid2">
+      <div class="f">
+        <label for="acct">MT5 account number</label>
+        <input id="acct" placeholder="12345678" inputmode="numeric">
+      </div>
+      <div class="f">
+        <label for="broker">Broker name</label>
+        <input id="broker" placeholder="Your broker">
+      </div>
+    </div>
+    <button class="btn btn-buy wide" style="margin-top:16px" onclick="bind()">Bind account</button>
+    <p class="hint">Your licence checks this account number every time the EA starts. Bind it to a demo
+      account from your broker first, watch it through a full week of sessions, then rebind to your live
+      account. Rebinding is free and there is no limit on how often.</p>
+  </div>
+
+  <div class="card">
+    <div class="ch"><h2>Download &amp; install</h2><span class="note">About ten minutes</span></div>
+    <div class="dl">
+      <button class="btn btn-buy" onclick="dl('GENZEFX.ex5')">Download GENZEFX.ex5</button>
+      <button class="btn btn-out" onclick="dl('presets.zip')">Download broker presets</button>
+    </div>
+    <ol class="inst">
+      <li>Open MetaTrader 5, then <b>File → Open Data Folder</b>.</li>
+      <li>Go into <code>MQL5</code> then <code>Experts</code>, and drop <code>GENZEFX.ex5</code> in there.</li>
+      <li>Close and reopen MT5. GENZE appears in the Navigator panel under Expert Advisors.</li>
+      <li>Open an <b>XAUUSD</b> chart, set it to <b>M1</b>, and drag GENZE onto the chart.</li>
+      <li>On the Common tab, tick <b>Allow Algo Trading</b>. Paste your licence key into the Inputs tab.</li>
+      <li>Load a preset that matches your broker, then press OK. The smiley in the top right means it is running.</li>
+      <li>Check the Experts tab in the Toolbox. GENZE prints your break-even win rate there on startup — read it.</li>
+    </ol>
+    <p class="hint">Stuck? Nobody gets penalised for asking. Message support and we will do it with you on a call.</p>
+  </div>
+
+  <div class="card">
+    <div class="ch"><h2>Keep it running</h2><span class="note">VPS</span></div>
+    <div class="vps">
+      <b>The terminal has to stay online</b>
+      GENZE FX runs inside your MT5 terminal. If you close your laptop, it stops trading and any open
+      positions are left unmanaged. Most people rent a small Windows VPS near their broker's server for a
+      few dollars a month. Any VPS with 2 GB of RAM handles one MT5 terminal comfortably — what matters far
+      more is low latency to your broker, not raw specs.
+    </div>
+  </div>
+
+  <div class="warn">
+    <b>Trading carries risk of loss.</b> Set your daily loss limit to a number you would genuinely be fine
+    losing, and run it on a demo account for a couple of weeks before committing real money.
+  </div>
+</div>
+
+<footer>
+  <a href="index.html">GENZE FX</a> · <a href="affiliate.html">Affiliates</a> ·
+  <a href="../">GenzeHub</a> — prototype, demo data
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="../config.js"></script>
+<script>
+const G=window.GENZE||{};
+const $=s=>document.querySelector(s);
+let t;
+function toast(m){const el=$('#toast');el.textContent=m;el.classList.add('show');clearTimeout(t);t=setTimeout(()=>el.classList.remove('show'),3000);}
+function copyKey(){
+  const k=$('#key').textContent;
+  navigator.clipboard?.writeText(k).then(()=>toast('Licence key copied'),()=>toast(k));
+}
+function bind(){
+  const a=$('#acct').value.trim();
+  if(!/^\d{4,12}$/.test(a)) return toast('Enter your MT5 account number');
+  toast('Demo mode — wire this to POST /api/licence/bind');
+}
+function dl(f){ toast('Demo mode — serve '+f+' from your protected download endpoint'); }
+
+</script>
+</body>
+</html>
